@@ -1,0 +1,19 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="MainBtn">
+        <item name="android:background">@drawable/selector_btn_red</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="layout_heightPercent">7%</item>
+        <item name="layout_marginBottomPercent">2%</item>
+        <item name="layout_textSizePercent">3%</item>
+        <item name="layout_widthPercent">90%</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+    </style>
+
+</resources>
