@@ -1,6 +1,6 @@
 package cn.bingoogolapple.volleynote.engine;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 
 import org.json.JSONObject;
 
@@ -41,7 +41,7 @@ public abstract class ApiRespDelegate<T> extends JsonRespDelegate<T> {
      */
     private static int sSuccessCode = 0;
 
-    public ApiRespDelegate(AppCompatActivity activity) {
+    public ApiRespDelegate(Activity activity) {
         super(activity);
     }
 

@@ -1,6 +1,6 @@
 package cn.bingoogolapple.volleynote.engine;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
  */
 public abstract class StringRespDelegate extends VolleyRespDelegate<String> {
 
-    public StringRespDelegate(AppCompatActivity activity) {
+    public StringRespDelegate(Activity activity) {
         super(activity);
     }
 

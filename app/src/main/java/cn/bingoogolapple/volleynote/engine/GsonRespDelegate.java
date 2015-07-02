@@ -1,6 +1,6 @@
 package cn.bingoogolapple.volleynote.engine;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
  */
 public abstract class GsonRespDelegate<T> extends JsonRespDelegate<T> {
 
-    public GsonRespDelegate(AppCompatActivity activity) {
+    public GsonRespDelegate(Activity activity) {
         super(activity);
     }
 

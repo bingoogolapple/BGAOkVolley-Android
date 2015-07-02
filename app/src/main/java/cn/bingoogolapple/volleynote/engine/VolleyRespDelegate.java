@@ -1,6 +1,6 @@
 package cn.bingoogolapple.volleynote.engine;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -15,10 +15,11 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  */
 public abstract class VolleyRespDelegate<T> implements Response.Listener<String> {
     private static final String TAG = VolleyRespDelegate.class.getSimpleName();
+    private static boolean mIsDebug = false;
     protected SweetAlertDialog mLoadingDialog;
-    private AppCompatActivity mActivity;
+    private Activity mActivity;
 
-    protected VolleyRespDelegate(AppCompatActivity activity) {
+    protected VolleyRespDelegate(Activity activity) {
         mActivity = activity;
         if (mActivity != null) {
             mLoadingDialog = new SweetAlertDialog(activity, SweetAlertDialog.PROGRESS_TYPE);
@@ -28,7 +29,11 @@ public abstract class VolleyRespDelegate<T> implements Response.Listener<String>
         }
     }
 
-    public AppCompatActivity getActivity() {
+    public static void setIsDebug(boolean isDebug) {
+        mIsDebug = isDebug;
+    }
+
+    public Activity getActivity() {
         return mActivity;
     }
 
