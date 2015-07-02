@@ -1,0 +1,9 @@
+{
+  "error_code": 0,
+  "error_description": "",
+  "content": {
+    "property1": "property1value",
+    "property2": 5
+    "property3": "property3value"
+  }
+}
