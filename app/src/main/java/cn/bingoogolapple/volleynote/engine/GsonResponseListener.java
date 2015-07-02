@@ -9,9 +9,9 @@ import com.google.gson.JsonParseException;
  * 创建时间:15/7/2 10:15
  * 描述:
  */
-public class GsonResponseListener extends VolleyResponseListener {
+public class GsonResponseListener extends JsonResponseListener {
 
-    public GsonResponseListener(AppCompatActivity activity, VolleyResponseDelegate delegate, Class clazz) {
+    public GsonResponseListener(AppCompatActivity activity, JsonResponseDelegate delegate, Class clazz) {
         super(activity, delegate, clazz);
     }
 
@@ -20,7 +20,7 @@ public class GsonResponseListener extends VolleyResponseListener {
         try {
             mDelegate.onSucess(sGson.fromJson(response, mClazz));
         } catch (JsonParseException e) {
-            mDelegate.onJsonError(e);
+            ((JsonResponseDelegate)mDelegate).onJsonError(e);
         }
     }
 }

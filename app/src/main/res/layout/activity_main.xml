@@ -55,4 +55,9 @@
         android:onClick="testGsonResponseJsonError"
         android:text="testGsonResponseJsonError" />
 
+    <android.support.v7.widget.AppCompatButton
+        style="@style/MainBtn"
+        android:onClick="testGetText"
+        android:text="testGetText" />
+
 </com.zhy.android.percent.support.PercentLinearLayout>

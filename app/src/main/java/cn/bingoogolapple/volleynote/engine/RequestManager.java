@@ -44,15 +44,15 @@ public class RequestManager {
         sRequestQueue.cancelAll(tag);
     }
 
-    public static void post(Object tag, String url, final Map<String, String> params, VolleyResponseListener responseListener) {
-        RequestManager.addRequest(tag, new StringRequest(Request.Method.POST, url, responseListener, responseListener.getErrorListener()) {
+    public static void post(String url, final Map<String, String> params, VolleyResponseListener responseListener) {
+        addRequest(responseListener.getActivity(), new StringRequest(Request.Method.POST, url, responseListener, responseListener.getErrorListener()) {
             protected Map<String, String> getParams() {
                 return params;
             }
         });
     }
 
-    public static void get(Object tag, String url, VolleyResponseListener responseListener) {
-        RequestManager.addRequest(tag, new StringRequest(Request.Method.GET, url, responseListener, responseListener.getErrorListener()));
+    public static void get(String url, VolleyResponseListener responseListener) {
+        addRequest(responseListener.getActivity(), new StringRequest(Request.Method.GET, url, responseListener, responseListener.getErrorListener()));
     }
 }

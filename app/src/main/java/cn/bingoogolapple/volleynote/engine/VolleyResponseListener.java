@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 
 import cn.bingoogolapple.volleynote.util.Logger;
 
@@ -14,21 +13,24 @@ import cn.bingoogolapple.volleynote.util.Logger;
  * 创建时间:15/7/2 10:14
  * 描述:
  */
-public abstract class VolleyResponseListener implements Response.Listener<String> {
+public class VolleyResponseListener implements Response.Listener<String> {
     private static final String TAG = VolleyResponseListener.class.getSimpleName();
-    protected static Gson sGson = new Gson();
     protected VolleyResponseDelegate mDelegate;
     protected ProgressDialog mLoadingDialog;
-    protected Class mClazz;
+    private AppCompatActivity mActivity;
 
-    public VolleyResponseListener(AppCompatActivity activity, VolleyResponseDelegate delegate, Class clazz) {
+    public VolleyResponseListener(AppCompatActivity activity, VolleyResponseDelegate delegate) {
         mDelegate = delegate;
-        mClazz = clazz;
-        if (activity != null) {
+        mActivity = activity;
+        if (mActivity != null) {
             mLoadingDialog = new ProgressDialog(activity);
             mLoadingDialog.setMessage("数据加载中，请稍候");
             mLoadingDialog.show();
         }
+    }
+
+    public AppCompatActivity getActivity() {
+        return mActivity;
     }
 
     @Override
@@ -38,7 +40,9 @@ public abstract class VolleyResponseListener implements Response.Listener<String
         handleResponse(response);
     }
 
-    protected abstract void handleResponse(String response);
+    protected void handleResponse(String response) {
+        mDelegate.onSucess(response);
+    }
 
     public Response.ErrorListener getErrorListener() {
         return new Response.ErrorListener() {
@@ -55,13 +59,9 @@ public abstract class VolleyResponseListener implements Response.Listener<String
             mLoadingDialog.dismiss();
         }
     }
-
+    
     public interface VolleyResponseDelegate<T> {
-
         void onSucess(T content);
-
-        void onJsonError(Exception e);
-
         void onNetError(VolleyError error);
     }
 

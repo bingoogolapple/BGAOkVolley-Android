@@ -10,7 +10,7 @@ import org.json.JSONObject;
  * 创建时间:15/7/2 10:20
  * 描述:
  */
-public class ApiResponseListener extends VolleyResponseListener {
+public class ApiResponseListener extends JsonResponseListener {
     /*
     {
         "error_code": 0,
@@ -65,17 +65,17 @@ public class ApiResponseListener extends VolleyResponseListener {
                 try {
                     mDelegate.onSucess(sGson.fromJson(jsonObject.getString(sContentKeyName), mClazz));
                 } catch (RuntimeException e) {
-                    mDelegate.onJsonError(e);
+                    ((ApiResponseDelegate) mDelegate).onJsonError(e);
                 }
             } else {
                 ((ApiResponseDelegate) mDelegate).onFailure(resultCode, jsonObject.getString(sErrorDescriptionKeyName));
             }
         } catch (JSONException e) {
-            mDelegate.onJsonError(e);
+            ((ApiResponseDelegate) mDelegate).onJsonError(e);
         }
     }
 
-    public interface ApiResponseDelegate<T> extends VolleyResponseDelegate<T> {
+    public interface ApiResponseDelegate<T> extends JsonResponseDelegate<T> {
         void jumpToLogin();
 
         void onFailure(int errorCode, String errorDescription);
