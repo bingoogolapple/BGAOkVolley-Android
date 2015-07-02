@@ -1,12 +1,12 @@
 package cn.bingoogolapple.volleynote.engine;
 
-import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import cn.bingoogolapple.volleynote.util.Logger;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
@@ -15,14 +15,15 @@ import cn.bingoogolapple.volleynote.util.Logger;
  */
 public abstract class VolleyRespDelegate<T> implements Response.Listener<String> {
     private static final String TAG = VolleyRespDelegate.class.getSimpleName();
-    protected ProgressDialog mLoadingDialog;
+    protected SweetAlertDialog mLoadingDialog;
     private AppCompatActivity mActivity;
 
     protected VolleyRespDelegate(AppCompatActivity activity) {
         mActivity = activity;
         if (mActivity != null) {
-            mLoadingDialog = new ProgressDialog(activity);
-            mLoadingDialog.setMessage("数据加载中，请稍候");
+            mLoadingDialog = new SweetAlertDialog(activity, SweetAlertDialog.PROGRESS_TYPE);
+            mLoadingDialog.setTitleText("加载中...");
+            mLoadingDialog.setCancelable(false);
             mLoadingDialog.show();
         }
     }

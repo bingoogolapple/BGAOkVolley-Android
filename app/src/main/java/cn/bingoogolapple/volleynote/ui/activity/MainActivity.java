@@ -16,6 +16,7 @@ import cn.bingoogolapple.volleynote.engine.StringRespDelegate;
 import cn.bingoogolapple.volleynote.model.Nest;
 import cn.bingoogolapple.volleynote.model.Normal;
 import cn.bingoogolapple.volleynote.util.ToastUtil;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -150,7 +151,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int errorCode, String errorDescription) {
-                ToastUtil.show(errorDescription);
+                new SweetAlertDialog(MainActivity.this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("提示")
+                        .setContentText(errorDescription)
+                        .show();
             }
 
             @Override
