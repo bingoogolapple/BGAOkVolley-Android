@@ -1,11 +1,12 @@
 package cn.bingoogolapple.volleynote.engine;
 
 import android.app.Activity;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import cn.bingoogolapple.volleynote.util.Logger;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
@@ -15,7 +16,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  */
 public abstract class VolleyRespDelegate<T> implements Response.Listener<String> {
     private static final String TAG = VolleyRespDelegate.class.getSimpleName();
-    private static boolean mIsDebug = false;
+    private static boolean sIsDebug = false;
+    private static String sLoadingMessage = "数据加载中，请稍候";
     protected SweetAlertDialog mLoadingDialog;
     private Activity mActivity;
 
@@ -23,14 +25,18 @@ public abstract class VolleyRespDelegate<T> implements Response.Listener<String>
         mActivity = activity;
         if (mActivity != null) {
             mLoadingDialog = new SweetAlertDialog(activity, SweetAlertDialog.PROGRESS_TYPE);
-            mLoadingDialog.setTitleText("加载中...");
+            mLoadingDialog.setTitleText(sLoadingMessage);
             mLoadingDialog.setCancelable(false);
             mLoadingDialog.show();
         }
     }
 
     public static void setIsDebug(boolean isDebug) {
-        mIsDebug = isDebug;
+        sIsDebug = isDebug;
+    }
+
+    public static void setLoadingMessage(String loadingMessage) {
+        sLoadingMessage = loadingMessage;
     }
 
     public Activity getActivity() {
@@ -39,7 +45,9 @@ public abstract class VolleyRespDelegate<T> implements Response.Listener<String>
 
     @Override
     public void onResponse(String response) {
-        Logger.e(TAG, response);
+        if (sIsDebug && !TextUtils.isEmpty(response)) {
+            Log.d(TAG, "response\n-------------------- START --------------------\n" + response + "\n-------------------- END --------------------");
+        }
         onFinish();
         handleResponse(response);
     }

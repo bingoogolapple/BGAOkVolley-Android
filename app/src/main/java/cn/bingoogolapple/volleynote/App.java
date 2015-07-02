@@ -30,6 +30,7 @@ public class App extends Application {
         ApiRespDelegate.init("error_code", "error_description", "content", -1, 0);
         // 设置为调试阶段打印日志
         VolleyRespDelegate.setIsDebug(Logger.IS_DEVELOP_MODE);
+        VolleyRespDelegate.setLoadingMessage("加载中......");
     }
 
     public static App getInstance() {
