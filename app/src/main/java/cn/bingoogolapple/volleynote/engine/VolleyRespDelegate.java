@@ -13,14 +13,12 @@ import cn.bingoogolapple.volleynote.util.Logger;
  * 创建时间:15/7/2 10:14
  * 描述:
  */
-public class VolleyResponseListener implements Response.Listener<String> {
-    private static final String TAG = VolleyResponseListener.class.getSimpleName();
-    protected VolleyResponseDelegate mDelegate;
+public abstract class VolleyRespDelegate<T> implements Response.Listener<String> {
+    private static final String TAG = VolleyRespDelegate.class.getSimpleName();
     protected ProgressDialog mLoadingDialog;
     private AppCompatActivity mActivity;
 
-    public VolleyResponseListener(AppCompatActivity activity, VolleyResponseDelegate delegate) {
-        mDelegate = delegate;
+    protected VolleyRespDelegate(AppCompatActivity activity) {
         mActivity = activity;
         if (mActivity != null) {
             mLoadingDialog = new ProgressDialog(activity);
@@ -41,7 +39,7 @@ public class VolleyResponseListener implements Response.Listener<String> {
     }
 
     protected void handleResponse(String response) {
-        mDelegate.onSucess(response);
+        onSucess((T) response);
     }
 
     public Response.ErrorListener getErrorListener() {
@@ -49,7 +47,7 @@ public class VolleyResponseListener implements Response.Listener<String> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 onFinish();
-                mDelegate.onNetError(error);
+                onNetError(error);
             }
         };
     }
@@ -59,10 +57,8 @@ public class VolleyResponseListener implements Response.Listener<String> {
             mLoadingDialog.dismiss();
         }
     }
-    
-    public interface VolleyResponseDelegate<T> {
-        void onSucess(T content);
-        void onNetError(VolleyError error);
-    }
 
+    protected abstract void onSucess(T content);
+
+    protected abstract void onNetError(VolleyError error);
 }

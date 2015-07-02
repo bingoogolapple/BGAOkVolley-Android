@@ -2,7 +2,6 @@ package cn.bingoogolapple.volleynote.engine;
 
 import android.support.v7.app.AppCompatActivity;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -10,7 +9,7 @@ import org.json.JSONObject;
  * 创建时间:15/7/2 10:20
  * 描述:
  */
-public class ApiResponseListener extends JsonResponseListener {
+public abstract class ApiRespDelegate<T> extends JsonRespDelegate<T> {
     /*
     {
         "error_code": 0,
@@ -42,8 +41,8 @@ public class ApiResponseListener extends JsonResponseListener {
      */
     private static int sSuccessCode = 0;
 
-    public ApiResponseListener(AppCompatActivity activity, ApiResponseDelegate delegate, Class clazz) {
-        super(activity, delegate, clazz);
+    public ApiRespDelegate(AppCompatActivity activity) {
+        super(activity);
     }
 
     public static void init(String errorCodeKeyName, String errorDescriptionKeyName, String contentKeyName, int jumpToLoginCode, int successCode) {
@@ -60,25 +59,19 @@ public class ApiResponseListener extends JsonResponseListener {
             JSONObject jsonObject = new JSONObject(response);
             int resultCode = jsonObject.getInt(sErrorCodeKeyName);
             if (resultCode == sJumpToLoginCode) {
-                ((ApiResponseDelegate) mDelegate).jumpToLogin();
+                jumpToLogin();
             } else if (resultCode == sSuccessCode) {
-                try {
-                    mDelegate.onSucess(sGson.fromJson(jsonObject.getString(sContentKeyName), mClazz));
-                } catch (RuntimeException e) {
-                    ((ApiResponseDelegate) mDelegate).onJsonError(e);
-                }
+                onSucess(sGson.fromJson(jsonObject.getString(sContentKeyName), getTClass()));
             } else {
-                ((ApiResponseDelegate) mDelegate).onFailure(resultCode, jsonObject.getString(sErrorDescriptionKeyName));
+                onFailure(resultCode, jsonObject.getString(sErrorDescriptionKeyName));
             }
-        } catch (JSONException e) {
-            ((ApiResponseDelegate) mDelegate).onJsonError(e);
+        } catch (Exception e) {
+            onJsonError(e);
         }
     }
 
-    public interface ApiResponseDelegate<T> extends JsonResponseDelegate<T> {
-        void jumpToLogin();
+    protected abstract void jumpToLogin();
 
-        void onFailure(int errorCode, String errorDescription);
-    }
+    protected abstract void onFailure(int errorCode, String errorDescription);
 
 }

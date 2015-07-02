@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 import cn.bingoogolapple.volleynote.R;
 import cn.bingoogolapple.volleynote.engine.ApiClient;
-import cn.bingoogolapple.volleynote.engine.ApiResponseListener;
-import cn.bingoogolapple.volleynote.engine.JsonResponseListener;
-import cn.bingoogolapple.volleynote.engine.VolleyResponseListener;
+import cn.bingoogolapple.volleynote.engine.ApiRespDelegate;
+import cn.bingoogolapple.volleynote.engine.GsonRespDelegate;
+import cn.bingoogolapple.volleynote.engine.StringRespDelegate;
 import cn.bingoogolapple.volleynote.model.Nest;
 import cn.bingoogolapple.volleynote.model.Normal;
 import cn.bingoogolapple.volleynote.util.ToastUtil;
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseNormal(View v) {
-        ApiClient.testApiResponseNormal(this, new ApiResponseListener.ApiResponseDelegate<Normal>() {
+        ApiClient.testApiResponseNormal(new ApiRespDelegate<Normal>(this) {
             @Override
             public void jumpToLogin() {
                 ToastUtil.show("请先登录");
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseList(View v) {
-        ApiClient.testApiResponseList(this, new ApiResponseListener.ApiResponseDelegate<ArrayList<Normal>>() {
+        ApiClient.testApiResponseList(new ApiRespDelegate<ArrayList<Normal>>(this) {
             @Override
             public void onSucess(ArrayList<Normal> content) {
                 ToastUtil.show("请求成功");
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseNest(View v) {
-        ApiClient.testApiResponseNest(this, new ApiResponseListener.ApiResponseDelegate<Nest>() {
+        ApiClient.testApiResponseNest(new ApiRespDelegate<Nest>(this) {
             @Override
             public void jumpToLogin() {
                 ToastUtil.show("请先登录");
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseNeedLogin(View v) {
-        ApiClient.testApiResponseNeedLogin(this, new ApiResponseListener.ApiResponseDelegate<Normal>() {
+        ApiClient.testApiResponseNeedLogin(new ApiRespDelegate<Normal>(this) {
             @Override
             public void jumpToLogin() {
                 ToastUtil.show("请先登录");
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseFailure(View v) {
-        ApiClient.testApiResponseFailure(this, new ApiResponseListener.ApiResponseDelegate<Normal>() {
+        ApiClient.testApiResponseFailure(new ApiRespDelegate<Normal>(this) {
             @Override
             public void jumpToLogin() {
                 ToastUtil.show("请先登录");
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseJsonError(View v) {
-        ApiClient.testApiResponseJsonError(this, new ApiResponseListener.ApiResponseDelegate<Normal>() {
+        ApiClient.testApiResponseJsonError("参数1", "参数2", new ApiRespDelegate<Normal>(this) {
             @Override
             public void jumpToLogin() {
                 ToastUtil.show("请先登录");
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testGsonResponseNormal(View v) {
-        ApiClient.testGsonResponseNormal(this, new JsonResponseListener.JsonResponseDelegate<Normal>() {
+        ApiClient.testGsonResponseNormal(new GsonRespDelegate<Normal>(this) {
             @Override
             public void onSucess(Normal content) {
                 ToastUtil.show("请求成功");
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testGsonResponseNest(View v) {
-        ApiClient.testGsonResponseNest(this, new JsonResponseListener.JsonResponseDelegate<Nest>() {
+        ApiClient.testGsonResponseNest("参数1", "参数2", new GsonRespDelegate<Nest>(this) {
             @Override
             public void onSucess(Nest content) {
                 ToastUtil.show("请求成功");
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testGsonResponseList(View v) {
-        ApiClient.testGsonResponseList(this, new JsonResponseListener.JsonResponseDelegate<ArrayList<Normal>>() {
+        ApiClient.testGsonResponseList(new GsonRespDelegate<ArrayList<Normal>>(this) {
             @Override
             public void onSucess(ArrayList<Normal> content) {
                 ToastUtil.show("请求成功");
@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testGsonResponseJsonError(View v) {
-        ApiClient.testGsonResponseJsonError(this, new JsonResponseListener.JsonResponseDelegate<Normal>() {
+        ApiClient.testGsonResponseJsonError(new GsonRespDelegate<Normal>(this) {
             @Override
             public void onSucess(Normal content) {
                 ToastUtil.show("请求成功");
@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testGetText(View v) {
-        ApiClient.testGetText(this, new VolleyResponseListener.VolleyResponseDelegate<String>() {
+        ApiClient.testGetText(new StringRespDelegate(this) {
             @Override
             public void onSucess(String content) {
                 ToastUtil.show("请求成功");

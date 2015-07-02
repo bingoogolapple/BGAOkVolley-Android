@@ -2,7 +2,7 @@ package cn.bingoogolapple.volleynote;
 
 import android.app.Application;
 
-import cn.bingoogolapple.volleynote.engine.ApiResponseListener;
+import cn.bingoogolapple.volleynote.engine.ApiRespDelegate;
 import cn.bingoogolapple.volleynote.engine.RequestManager;
 
 /**
@@ -21,7 +21,7 @@ public class App extends Application {
         // 初始化Volley
         RequestManager.init(this);
         // 初始化ApiResponseListener
-        ApiResponseListener.init("error_code", "error_description", "content", -1, 0);
+        ApiRespDelegate.init("error_code", "error_description", "content", -1, 0);
     }
 
     public static App getInstance() {

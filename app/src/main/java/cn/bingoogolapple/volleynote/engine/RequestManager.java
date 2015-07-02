@@ -44,7 +44,7 @@ public class RequestManager {
         sRequestQueue.cancelAll(tag);
     }
 
-    public static void post(String url, final Map<String, String> params, VolleyResponseListener responseListener) {
+    public static void post(String url, final Map<String, String> params, VolleyRespDelegate responseListener) {
         addRequest(responseListener.getActivity(), new StringRequest(Request.Method.POST, url, responseListener, responseListener.getErrorListener()) {
             protected Map<String, String> getParams() {
                 return params;
@@ -52,7 +52,7 @@ public class RequestManager {
         });
     }
 
-    public static void get(String url, VolleyResponseListener responseListener) {
+    public static void get(String url, VolleyRespDelegate responseListener) {
         addRequest(responseListener.getActivity(), new StringRequest(Request.Method.GET, url, responseListener, responseListener.getErrorListener()));
     }
 }
