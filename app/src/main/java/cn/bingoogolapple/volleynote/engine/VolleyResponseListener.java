@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import cn.bingoogolapple.volleynote.util.Logger;
 
@@ -17,7 +16,7 @@ import cn.bingoogolapple.volleynote.util.Logger;
  */
 public abstract class VolleyResponseListener implements Response.Listener<String> {
     private static final String TAG = VolleyResponseListener.class.getSimpleName();
-    protected static Gson sGson = new GsonBuilder().create();
+    protected static Gson sGson = new Gson();
     protected VolleyResponseDelegate mDelegate;
     protected ProgressDialog mLoadingDialog;
     protected Class mClazz;

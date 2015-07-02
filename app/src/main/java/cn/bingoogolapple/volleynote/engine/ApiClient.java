@@ -35,7 +35,8 @@ public class ApiClient {
 
     public static void testApiResponseJsonError(AppCompatActivity activity, ApiResponseListener.ApiResponseDelegate delegate) {
         // 本来是List类型，用Normal类型去接收，模拟json解析错误
-        RequestManager.post(activity, "https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseList.json", new ApiParams().with("p1", "p1value").with("p2", "p2value"), new ApiResponseListener(activity, delegate, Normal.class));
+        // RequestManager.post(activity, "https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseList.json", new ApiParams().with("p1", "p1value").with("p2", "p2value"), new ApiResponseListener(activity, delegate, Normal.class));
+        RequestManager.post(activity, "https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseJsonError.json", new ApiParams().with("p1", "p1value").with("p2", "p2value"), new ApiResponseListener(activity, delegate, Normal.class));
     }
 
     public static void testGsonResponseNormal(AppCompatActivity activity, VolleyResponseListener.VolleyResponseDelegate delegate) {
@@ -52,7 +53,8 @@ public class ApiClient {
 
     public static void testGsonResponseJsonError(AppCompatActivity activity, VolleyResponseListener.VolleyResponseDelegate delegate) {
         // 本来是List类型，用Normal类型去接收，模拟json解析错误
-        RequestManager.get(activity, "https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseList.json", new GsonResponseListener(activity, delegate, Normal.class));
+        // RequestManager.get(activity, "https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseList.json", new GsonResponseListener(activity, delegate, Normal.class));
+        RequestManager.get(activity, "https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseJsonError.json", new GsonResponseListener(activity, delegate, Normal.class));
     }
 
 }
