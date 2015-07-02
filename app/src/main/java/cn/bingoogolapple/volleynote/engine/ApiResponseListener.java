@@ -2,8 +2,6 @@ package cn.bingoogolapple.volleynote.engine;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.google.gson.reflect.TypeToken;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,7 +10,7 @@ import org.json.JSONObject;
  * 创建时间:15/7/2 10:20
  * 描述:
  */
-public class ApiResponseListener<T> extends VolleyResponseListener {
+public class ApiResponseListener extends VolleyResponseListener {
     /*
     {
         "error_code": 0,
@@ -44,8 +42,8 @@ public class ApiResponseListener<T> extends VolleyResponseListener {
      */
     private static int sSuccessCode = 0;
 
-    public ApiResponseListener(AppCompatActivity activity, ApiResponseDelegate delegate) {
-        super(activity, delegate);
+    public ApiResponseListener(AppCompatActivity activity, ApiResponseDelegate delegate, Class clazz) {
+        super(activity, delegate, clazz);
     }
 
     public static void init(String errorCodeKeyName, String errorDescriptionKeyName, String contentKeyName, int jumpToLoginCode, int successCode) {
@@ -64,9 +62,11 @@ public class ApiResponseListener<T> extends VolleyResponseListener {
             if (resultCode == sJumpToLoginCode) {
                 ((ApiResponseDelegate) mDelegate).jumpToLogin();
             } else if (resultCode == sSuccessCode) {
-                T t = sGson.fromJson(jsonObject.getString(sContentKeyName), new TypeToken<T>() {
-                }.getType());
-                mDelegate.onSucess(t);
+                try {
+                    mDelegate.onSucess(sGson.fromJson(jsonObject.getString(sContentKeyName), mClazz));
+                } catch (RuntimeException e) {
+                    mDelegate.onJsonError(e);
+                }
             } else {
                 ((ApiResponseDelegate) mDelegate).onFailure(resultCode, jsonObject.getString(sErrorDescriptionKeyName));
             }

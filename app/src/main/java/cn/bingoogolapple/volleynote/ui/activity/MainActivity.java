@@ -170,7 +170,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseJsonError(View v) {
+        ApiClient.testApiResponseJsonError(this, new ApiResponseListener.ApiResponseDelegate<Normal>() {
+            @Override
+            public void jumpToLogin() {
+                ToastUtil.show("请先登录");
+            }
 
+            @Override
+            public void onFailure(int errorCode, String errorDescription) {
+                ToastUtil.show(errorDescription);
+            }
+
+            @Override
+            public void onSucess(Normal content) {
+                ToastUtil.show("请求成功");
+            }
+
+            @Override
+            public void onJsonError(Exception e) {
+                ToastUtil.show("服务器异常");
+            }
+
+            @Override
+            public void onNetError(VolleyError error) {
+                ToastUtil.show("网络出错");
+            }
+        });
     }
 
     public void testGsonResponseNormal(View v) {
@@ -231,7 +256,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testGsonResponseJsonError(View v) {
+        ApiClient.testGsonResponseJsonError(this, new VolleyResponseListener.VolleyResponseDelegate<Normal>() {
+            @Override
+            public void onSucess(Normal content) {
+                ToastUtil.show("请求成功");
+            }
 
+            @Override
+            public void onJsonError(Exception e) {
+                ToastUtil.show("服务器异常");
+            }
+
+            @Override
+            public void onNetError(VolleyError error) {
+                ToastUtil.show("网络出错");
+            }
+        });
     }
 
 }

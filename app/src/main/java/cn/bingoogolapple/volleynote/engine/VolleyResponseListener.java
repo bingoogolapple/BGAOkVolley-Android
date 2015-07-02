@@ -20,9 +20,11 @@ public abstract class VolleyResponseListener implements Response.Listener<String
     protected static Gson sGson = new GsonBuilder().create();
     protected VolleyResponseDelegate mDelegate;
     protected ProgressDialog mLoadingDialog;
+    protected Class mClazz;
 
-    public VolleyResponseListener(AppCompatActivity activity, VolleyResponseDelegate delegate) {
+    public VolleyResponseListener(AppCompatActivity activity, VolleyResponseDelegate delegate, Class clazz) {
         mDelegate = delegate;
+        mClazz = clazz;
         if (activity != null) {
             mLoadingDialog = new ProgressDialog(activity);
             mLoadingDialog.setMessage("数据加载中，请稍候");
