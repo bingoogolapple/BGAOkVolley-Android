@@ -1,0 +1,21 @@
+{
+  "error_code": 0,
+  "error_description": "",
+  "content": [
+    {
+      "property1": "property11value",
+      "property2": 1,
+      "property3": "property31value"
+    },
+    {
+      "property1": "property12value",
+      "property2": 2,
+      "property3": "property32value"
+    },
+    {
+      "property1": "property13value",
+      "property2": 3,
+      "property3": "property33value"
+    }
+  ]
+}
