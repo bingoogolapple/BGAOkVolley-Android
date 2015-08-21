@@ -15,7 +15,6 @@ import java.util.Map;
  * 描述:
  */
 public class RequestManager {
-
     private static RequestQueue sRequestQueue;
 
     private RequestManager() {
@@ -45,7 +44,7 @@ public class RequestManager {
     }
 
     public static void post(String url, final Map<String, String> params, VolleyRespDelegate responseListener) {
-        addRequest(responseListener.getActivity(), new StringRequest(Request.Method.POST, url, responseListener, responseListener.getErrorListener()) {
+        addRequest(responseListener.getTag(), new StringRequest(Request.Method.POST, url, responseListener, responseListener.getErrorListener()) {
             protected Map<String, String> getParams() {
                 return params;
             }
@@ -53,6 +52,6 @@ public class RequestManager {
     }
 
     public static void get(String url, VolleyRespDelegate responseListener) {
-        addRequest(responseListener.getActivity(), new StringRequest(Request.Method.GET, url, responseListener, responseListener.getErrorListener()));
+        addRequest(responseListener.getTag(), new StringRequest(Request.Method.GET, url, responseListener, responseListener.getErrorListener()));
     }
 }

@@ -1,6 +1,6 @@
 package cn.bingoogolapple.volleynote.engine;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 
 import com.google.gson.Gson;
 
@@ -17,8 +17,8 @@ import java.util.Collection;
 public abstract class JsonRespDelegate<T> extends VolleyRespDelegate<T> {
     protected static Gson sGson = new Gson();
 
-    protected JsonRespDelegate(AppCompatActivity activity) {
-        super(activity);
+    protected JsonRespDelegate(Object tag, Activity activity) {
+        super(tag, activity);
     }
 
     protected Class<T> getTClass() {
