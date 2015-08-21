@@ -17,7 +17,6 @@ public abstract class VolleyRespDelegate<T> implements Response.Listener<String>
     private static final String TAG = VolleyRespDelegate.class.getSimpleName();
     private static boolean sIsDebug = false;
     private static String sLoadingMessage = "数据加载中，请稍候";
-    private boolean mIsShowDialog;
     protected SweetAlertDialog mLoadingDialog;
     private Object mTag;
 

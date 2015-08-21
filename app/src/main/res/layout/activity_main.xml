@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MatchMatch">
 
-    <android.support.v7.widget.AppCompatButton
-        style="@style/MainBtn"
-        android:onClick="testApiResponseNormal"
-        android:text="testApiResponseNormal" />
+    <LinearLayout style="@style/MatchMatch.Vertical">
 
-    <android.support.v7.widget.AppCompatButton
-        style="@style/MainBtn"
-        android:onClick="testApiResponseList"
-        android:text="testApiResponseList" />
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testApiResponseNormal"
+            android:text="testApiResponseNormal" />
 
-    <android.support.v7.widget.AppCompatButton
-        style="@style/MainBtn"
-        android:onClick="testApiResponseNest"
-        android:text="testApiResponseNest" />
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testApiResponseList"
+            android:text="testApiResponseList" />
 
-    <android.support.v7.widget.AppCompatButton
-        style="@style/MainBtn"
-        android:onClick="testApiResponseNeedLogin"
-        android:text="testApiResponseNeedLogin" />
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testApiResponseNest"
+            android:text="testApiResponseNest" />
 
-    <android.support.v7.widget.AppCompatButton
-        style="@style/MainBtn"
-        android:onClick="testApiResponseFailure"
-        android:text="testApiResponseFailure" />
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testApiResponseNeedLogin"
+            android:text="testApiResponseNeedLogin" />
 
-    <android.support.v7.widget.AppCompatButton
-        style="@style/MainBtn"
-        android:onClick="testApiResponseJsonError"
-        android:text="testApiResponseJsonError" />
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testApiResponseFailure"
+            android:text="testApiResponseFailure" />
 
-    <android.support.v7.widget.AppCompatButton
-        style="@style/MainBtn"
-        android:onClick="testGsonResponseNormal"
-        android:text="testGsonResponseNormal" />
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testApiResponseJsonError"
+            android:text="testApiResponseJsonError" />
 
-    <android.support.v7.widget.AppCompatButton
-        style="@style/MainBtn"
-        android:onClick="testGsonResponseNest"
-        android:text="testGsonResponseNest" />
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testGsonResponseNormal"
+            android:text="testGsonResponseNormal" />
 
-    <android.support.v7.widget.AppCompatButton
-        style="@style/MainBtn"
-        android:onClick="testGsonResponseList"
-        android:text="testGsonResponseList" />
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testGsonResponseNest"
+            android:text="testGsonResponseNest" />
 
-    <android.support.v7.widget.AppCompatButton
-        style="@style/MainBtn"
-        android:onClick="testGsonResponseJsonError"
-        android:text="testGsonResponseJsonError" />
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testGsonResponseList"
+            android:text="testGsonResponseList" />
 
-    <android.support.v7.widget.AppCompatButton
-        style="@style/MainBtn"
-        android:onClick="testGetText"
-        android:text="testGetText" />
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testGsonResponseJsonError"
+            android:text="testGsonResponseJsonError" />
 
-</com.zhy.android.percent.support.PercentLinearLayout>
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testGetText"
+            android:text="testGetText" />
+
+    </LinearLayout>
+</ScrollView>

@@ -7,23 +7,23 @@ package cn.bingoogolapple.volleynote.engine;
  */
 public class ApiClient {
     public static void testApiResponseNormal(ApiRespDelegate delegate) {
-        RequestManager.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseNormal.json", delegate);
+        OKVolley.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseNormal.json", delegate);
     }
 
     public static void testApiResponseList(ApiRespDelegate delegate) {
-        RequestManager.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseList.json", delegate);
+        OKVolley.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseList.json", delegate);
     }
 
     public static void testApiResponseNest(ApiRespDelegate delegate) {
-        RequestManager.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseNest.json", delegate);
+        OKVolley.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseNest.json", delegate);
     }
 
     public static void testApiResponseNeedLogin(ApiRespDelegate delegate) {
-        RequestManager.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseNeedLogin.json", delegate);
+        OKVolley.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseNeedLogin.json", delegate);
     }
 
     public static void testApiResponseFailure(ApiRespDelegate delegate) {
-        RequestManager.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseFailure.json", delegate);
+        OKVolley.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseFailure.json", delegate);
     }
 
     public static void testApiResponseJsonError(String param1, String param2, ApiRespDelegate delegate) {
@@ -32,19 +32,19 @@ public class ApiClient {
         // 本来是Normal类型，用ArrayList类型去接收，模拟json解析错误
 //        RequestManager.post("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseNormal.json", new ApiParams().with("p1", "p1value").with("p2", "p2value"), delegate);
         // Json语法错误
-        RequestManager.post("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseJsonError.json", new ApiParams().with("p1", param1).with("p2", param2), delegate);
+        OKVolley.post("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testApiResponseJsonError.json", new ApiParams().with("p1", param1).with("p2", param2), delegate);
     }
 
     public static void testGsonResponseNormal(JsonRespDelegate delegate) {
-        RequestManager.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseNormal.json", delegate);
+        OKVolley.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseNormal.json", delegate);
     }
 
     public static void testGsonResponseNest(String param1, String param2, JsonRespDelegate delegate) {
-        RequestManager.post("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseNest.json", new ApiParams().with("p1", param1).with("p2", param2), delegate);
+        OKVolley.post("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseNest.json", new ApiParams().with("p1", param1).with("p2", param2), delegate);
     }
 
     public static void testGsonResponseList(JsonRespDelegate delegate) {
-        RequestManager.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseList.json", delegate);
+        OKVolley.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseList.json", delegate);
     }
 
     public static void testGsonResponseJsonError(JsonRespDelegate delegate) {
@@ -53,11 +53,11 @@ public class ApiClient {
         // 本来是Normal类型，用ArrayList类型去接收，模拟json解析错误
 //        RequestManager.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseNormal.json", delegate);
         // Json语法错误
-        RequestManager.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseJsonError.json", delegate);
+        OKVolley.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseJsonError.json", delegate);
     }
 
     public static void testGetText(VolleyRespDelegate delegate) {
-        RequestManager.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseNormal.json", delegate);
+        OKVolley.get("https://raw.githubusercontent.com/bingoogolapple/VolleyNote/server/testGsonResponseNormal.json", delegate);
     }
 
 }

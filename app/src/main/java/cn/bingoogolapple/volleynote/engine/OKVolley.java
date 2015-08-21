@@ -14,14 +14,14 @@ import java.util.Map;
  * 创建时间:15/7/2 10:14
  * 描述:
  */
-public class RequestManager {
+public class OKVolley {
     private static RequestQueue sRequestQueue;
 
-    private RequestManager() {
+    private OKVolley() {
     }
 
     public static void init(Context context) {
-        sRequestQueue = Volley.newRequestQueue(context);
+        sRequestQueue = Volley.newRequestQueue(context, new OkHttpStack());
     }
 
     public static RequestQueue getRequestQueue() {
@@ -36,7 +36,7 @@ public class RequestManager {
         if (tag != null) {
             request.setTag(tag);
         }
-        sRequestQueue.add(request);
+        getRequestQueue().add(request);
     }
 
     public static void cancelAll(Object tag) {
