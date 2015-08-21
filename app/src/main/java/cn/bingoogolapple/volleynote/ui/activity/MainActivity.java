@@ -1,10 +1,16 @@
 package cn.bingoogolapple.volleynote.ui.activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
 
@@ -12,18 +18,52 @@ import cn.bingoogolapple.volleynote.R;
 import cn.bingoogolapple.volleynote.engine.ApiClient;
 import cn.bingoogolapple.volleynote.engine.ApiRespDelegate;
 import cn.bingoogolapple.volleynote.engine.GsonRespDelegate;
+import cn.bingoogolapple.volleynote.engine.OKVolley;
 import cn.bingoogolapple.volleynote.engine.StringRespDelegate;
 import cn.bingoogolapple.volleynote.model.Nest;
 import cn.bingoogolapple.volleynote.model.Normal;
+import cn.bingoogolapple.volleynote.util.CircleDrawableUtil;
 import cn.bingoogolapple.volleynote.util.ToastUtil;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TEST_IMAGE_URL = "http://7xk9dj.com1.z0.glb.clouddn.com/refreshlayout/images/staggered72.png";
+    private ImageView mAvatarIv;
+    private CircleImageView mAvatarCiv;
+    private NetworkImageView mAvatarNiv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAvatarIv = (ImageView) findViewById(R.id.iv_main_avatar);
+        mAvatarCiv = (CircleImageView) findViewById(R.id.civ_main_avatar);
+        mAvatarNiv = (NetworkImageView) findViewById(R.id.niv_main_avatar);
+        testLoadImage();
+    }
+
+    private void testLoadImage() {
+        OKVolley.getRequestQueue().add(new ImageRequest(TEST_IMAGE_URL, new Response.Listener<Bitmap>() {
+
+            @Override
+            public void onResponse(Bitmap response) {
+                mAvatarIv.setImageDrawable(CircleDrawableUtil.getCircleDrawable(MainActivity.this, response));
+            }
+        }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                mAvatarIv.setImageDrawable(CircleDrawableUtil.getCircleDrawable(MainActivity.this, R.mipmap.avatar_error));
+            }
+        }));
+
+        OKVolley.getImageLoader().get(TEST_IMAGE_URL, ImageLoader.getImageListener(mAvatarCiv, R.mipmap.avatar_default, R.mipmap.avatar_error));
+
+        mAvatarNiv.setDefaultImageResId(R.mipmap.avatar_default);
+        mAvatarNiv.setErrorImageResId(R.mipmap.avatar_error);
+        mAvatarNiv.setImageUrl(TEST_IMAGE_URL, OKVolley.getImageLoader());
     }
 
     public void testApiResponseNormal(View v) {

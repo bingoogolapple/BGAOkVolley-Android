@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -16,19 +17,33 @@ import java.util.Map;
  */
 public class OKVolley {
     private static RequestQueue sRequestQueue;
+    private static ImageLoader sImageLoader;
 
     private OKVolley() {
     }
 
     public static void init(Context context) {
+        init(context, LruBitmapCache.getCacheSize(context));
+    }
+
+    public static void init(Context context, int maxSize) {
         sRequestQueue = Volley.newRequestQueue(context, new OkHttpStack());
+        sImageLoader = new ImageLoader(getRequestQueue(), new LruBitmapCache(maxSize));
     }
 
     public static RequestQueue getRequestQueue() {
         if (sRequestQueue != null) {
             return sRequestQueue;
         } else {
-            throw new IllegalStateException("RequestQueue not initialized");
+            throw new IllegalStateException("OKVolley not initialized");
+        }
+    }
+
+    public static ImageLoader getImageLoader() {
+        if (sImageLoader != null) {
+            return sImageLoader;
+        } else {
+            throw new IllegalStateException("OKVolley not initialized");
         }
     }
 
