@@ -1,4 +1,4 @@
-package cn.bingoogolapple.volleynote.engine;
+package cn.bingoogolapple.okvolley;
 
 import com.android.volley.toolbox.HurlStack;
 import com.squareup.okhttp.OkHttpClient;
@@ -14,7 +14,7 @@ import java.net.URL;
  * 描述:
  */
 public class OkHttpStack extends HurlStack {
-    private final OkUrlFactory okUrlFactory;
+    private OkUrlFactory mOkUrlFactory;
 
     public OkHttpStack() {
         this(new OkUrlFactory(new OkHttpClient()));
@@ -22,13 +22,13 @@ public class OkHttpStack extends HurlStack {
 
     public OkHttpStack(OkUrlFactory okUrlFactory) {
         if (okUrlFactory == null) {
-            throw new NullPointerException("Client must not be null.");
+            throw new NullPointerException("okUrlFactory不能为空");
         }
-        this.okUrlFactory = okUrlFactory;
+        mOkUrlFactory = okUrlFactory;
     }
 
     @Override
     protected HttpURLConnection createConnection(URL url) throws IOException {
-        return okUrlFactory.open(url);
+        return mOkUrlFactory.open(url);
     }
 }

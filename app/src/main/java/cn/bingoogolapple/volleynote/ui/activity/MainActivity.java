@@ -14,15 +14,15 @@ import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
 
+import cn.bingoogolapple.okvolley.ApiRespDelegate;
+import cn.bingoogolapple.okvolley.RoundedNetworkImageView;
+import cn.bingoogolapple.okvolley.GsonRespDelegate;
+import cn.bingoogolapple.okvolley.OKVolley;
+import cn.bingoogolapple.okvolley.StringRespDelegate;
 import cn.bingoogolapple.volleynote.R;
 import cn.bingoogolapple.volleynote.engine.ApiClient;
-import cn.bingoogolapple.volleynote.engine.ApiRespDelegate;
-import cn.bingoogolapple.volleynote.engine.GsonRespDelegate;
-import cn.bingoogolapple.volleynote.engine.OKVolley;
-import cn.bingoogolapple.volleynote.engine.StringRespDelegate;
 import cn.bingoogolapple.volleynote.model.Nest;
 import cn.bingoogolapple.volleynote.model.Normal;
-import cn.bingoogolapple.volleynote.util.CircleDrawableUtil;
 import cn.bingoogolapple.volleynote.util.ToastUtil;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,38 +32,66 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mAvatarIv;
     private CircleImageView mAvatarCiv;
     private NetworkImageView mAvatarNiv;
+    private RoundedNetworkImageView mAvatarCircleRniv;
+    private RoundedNetworkImageView mAvatarRoundedRniv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mAvatarIv = (ImageView) findViewById(R.id.iv_main_avatar);
-        mAvatarCiv = (CircleImageView) findViewById(R.id.civ_main_avatar);
-        mAvatarNiv = (NetworkImageView) findViewById(R.id.niv_main_avatar);
         testLoadImage();
     }
 
     private void testLoadImage() {
+        testImageView();
+        testCircleImageView();
+        testNetworkImageView();
+        testCircleNetworkImageView();
+        testRoundedNetworkImageView();
+    }
+
+    private void testImageView() {
+        mAvatarIv = (ImageView) findViewById(R.id.iv_main_avatar);
+
         OKVolley.getRequestQueue().add(new ImageRequest(TEST_IMAGE_URL, new Response.Listener<Bitmap>() {
 
             @Override
             public void onResponse(Bitmap response) {
-                mAvatarIv.setImageDrawable(CircleDrawableUtil.getCircleDrawable(MainActivity.this, response));
+                mAvatarIv.setImageDrawable(RoundedNetworkImageView.getCircleDrawable(MainActivity.this, response));
             }
         }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                mAvatarIv.setImageDrawable(CircleDrawableUtil.getCircleDrawable(MainActivity.this, R.mipmap.avatar_error));
+                mAvatarIv.setImageDrawable(RoundedNetworkImageView.getCircleDrawable(MainActivity.this, R.mipmap.avatar_error));
             }
         }));
+    }
+
+    private void testCircleImageView() {
+        mAvatarCiv = (CircleImageView) findViewById(R.id.civ_main_avatar);
 
         OKVolley.getImageLoader().get(TEST_IMAGE_URL, ImageLoader.getImageListener(mAvatarCiv, R.mipmap.avatar_default, R.mipmap.avatar_error));
+    }
+
+    private void testNetworkImageView() {
+        mAvatarNiv = (NetworkImageView) findViewById(R.id.niv_main_avatar);
 
         mAvatarNiv.setDefaultImageResId(R.mipmap.avatar_default);
         mAvatarNiv.setErrorImageResId(R.mipmap.avatar_error);
         mAvatarNiv.setImageUrl(TEST_IMAGE_URL, OKVolley.getImageLoader());
+    }
+
+    private void testCircleNetworkImageView() {
+        mAvatarCircleRniv = (RoundedNetworkImageView) findViewById(R.id.rniv_main_avatar);
+
+        mAvatarCircleRniv.setImageUrl(TEST_IMAGE_URL, OKVolley.getImageLoader());
+    }
+
+    private void testRoundedNetworkImageView() {
+        mAvatarRoundedRniv = (RoundedNetworkImageView) findViewById(R.id.rniv_main_avatarRounded);
+
+        mAvatarRoundedRniv.setImageUrl(TEST_IMAGE_URL, OKVolley.getImageLoader());
     }
 
     public void testApiResponseNormal(View v) {

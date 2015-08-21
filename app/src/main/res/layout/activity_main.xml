@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/MatchMatch">
 
     <LinearLayout style="@style/MatchMatch.Vertical">
@@ -8,24 +9,41 @@
 
             <ImageView
                 android:id="@+id/iv_main_avatar"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_margin="5dp"
                 android:src="@mipmap/avatar_default" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/civ_main_avatar"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_margin="5dp"
                 android:src="@mipmap/avatar_default" />
 
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/niv_main_avatar"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_margin="5dp"
                 android:src="@mipmap/avatar_default" />
+
+            <cn.bingoogolapple.okvolley.RoundedNetworkImageView
+                android:id="@+id/rniv_main_avatar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                android:src="@mipmap/avatar_default"
+                app:rniv_errorImage="@mipmap/avatar_error" />
+
+            <cn.bingoogolapple.okvolley.RoundedNetworkImageView
+                android:id="@+id/rniv_main_avatarRounded"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                android:src="@mipmap/avatar_default"
+                app:rniv_cornerRadius="20dp"
+                app:rniv_errorImage="@mipmap/avatar_error" />
         </LinearLayout>
 
         <TextView

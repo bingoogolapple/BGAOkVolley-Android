@@ -1,4 +1,4 @@
-package cn.bingoogolapple.volleynote.engine;
+package cn.bingoogolapple.okvolley;
 
 import android.app.Activity;
 import android.util.Log;
@@ -89,4 +89,5 @@ public abstract class VolleyRespDelegate<T> implements Response.Listener<String>
     protected abstract void onSucess(T content);
 
     protected abstract void onNetError(VolleyError error);
+
 }
