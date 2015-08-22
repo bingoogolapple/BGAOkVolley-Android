@@ -8,16 +8,15 @@ import android.widget.ImageView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
 
 import cn.bingoogolapple.okvolley.ApiRespDelegate;
-import cn.bingoogolapple.okvolley.RoundedNetworkImageView;
 import cn.bingoogolapple.okvolley.GsonRespDelegate;
 import cn.bingoogolapple.okvolley.OKVolley;
+import cn.bingoogolapple.okvolley.RoundedNetworkImageView;
 import cn.bingoogolapple.okvolley.StringRespDelegate;
 import cn.bingoogolapple.volleynote.R;
 import cn.bingoogolapple.volleynote.engine.ApiClient;
@@ -71,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
     private void testCircleImageView() {
         mAvatarCiv = (CircleImageView) findViewById(R.id.civ_main_avatar);
 
-        OKVolley.getImageLoader().get(TEST_IMAGE_URL, ImageLoader.getImageListener(mAvatarCiv, R.mipmap.avatar_default, R.mipmap.avatar_error));
+//        OKVolley.getImageLoader().get(TEST_IMAGE_URL, ImageLoader.getImageListener(mAvatarCiv, R.mipmap.avatar_default, R.mipmap.avatar_error));
+        OKVolley.displayImage(TEST_IMAGE_URL, mAvatarCiv, R.mipmap.avatar_default, R.mipmap.avatar_error);
     }
 
     private void testNetworkImageView() {

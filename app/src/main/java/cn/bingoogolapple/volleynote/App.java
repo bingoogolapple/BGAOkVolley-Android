@@ -23,7 +23,7 @@ public class App extends Application {
         // 初始化Volley
         OKVolley.init(this);
         // 初始化ApiRespDelegate
-        ApiRespDelegate.init("error_code", "error_description", "content", -1, 0);
+        ApiRespDelegate.init("error_code", "error_description", "content", 0, -1);
         // 设置为调试阶段打印日志
         VolleyRespDelegate.setIsDebug(Logger.IS_DEVELOP_MODE);
         VolleyRespDelegate.setLoadingMessage(getString(R.string.loading_data_tip));

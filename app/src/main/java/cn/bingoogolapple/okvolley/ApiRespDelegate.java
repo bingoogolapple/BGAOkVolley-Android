@@ -4,6 +4,9 @@ import android.app.Activity;
 
 import org.json.JSONObject;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
  * 创建时间:15/7/2 10:20
@@ -35,7 +38,7 @@ public abstract class ApiRespDelegate<T> extends JsonRespDelegate<T> {
     /**
      * 需要跳转到登录界面的结果码
      */
-    private static int sJumpToLoginCode = -1;
+    private static List<Integer> sJumpToLoginCodes;
     /**
      * 请求数据成功的结果码
      */
@@ -45,11 +48,12 @@ public abstract class ApiRespDelegate<T> extends JsonRespDelegate<T> {
         super(tag, activity);
     }
 
-    public static void init(String errorCodeKeyName, String errorDescriptionKeyName, String contentKeyName, int jumpToLoginCode, int successCode) {
+    public static void init(String errorCodeKeyName, String errorDescriptionKeyName, String contentKeyName, int successCode, Integer ... jumpToLoginCodes) {
         sErrorCodeKeyName = errorCodeKeyName;
         sErrorDescriptionKeyName = errorDescriptionKeyName;
         sContentKeyName = contentKeyName;
-        sJumpToLoginCode = jumpToLoginCode;
+        sJumpToLoginCodes = Arrays.asList(jumpToLoginCodes);
+
         sSuccessCode = successCode;
     }
 
@@ -58,7 +62,8 @@ public abstract class ApiRespDelegate<T> extends JsonRespDelegate<T> {
         try {
             JSONObject jsonObject = new JSONObject(response);
             int resultCode = jsonObject.getInt(sErrorCodeKeyName);
-            if (resultCode == sJumpToLoginCode) {
+
+            if (sJumpToLoginCodes.contains(resultCode)) {
                 jumpToLogin();
             } else if (resultCode == sSuccessCode) {
                 onSucess(sGson.fromJson(jsonObject.getString(sContentKeyName), getTClass()));

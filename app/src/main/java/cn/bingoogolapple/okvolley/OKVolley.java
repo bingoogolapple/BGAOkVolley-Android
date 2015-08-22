@@ -1,12 +1,14 @@
 package cn.bingoogolapple.okvolley;
 
 import android.content.Context;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.util.Map;
 
@@ -18,6 +20,7 @@ import java.util.Map;
 public class OKVolley {
     private static RequestQueue sRequestQueue;
     private static ImageLoader sImageLoader;
+    private static OkHttpClient sOkHttpClient;
 
     private OKVolley() {
     }
@@ -27,8 +30,17 @@ public class OKVolley {
     }
 
     public static void init(Context context, int maxSize) {
-        sRequestQueue = Volley.newRequestQueue(context, new OkHttpStack());
+        sOkHttpClient = new OkHttpClient();
+        sRequestQueue = Volley.newRequestQueue(context, new OkHttpStack(sOkHttpClient));
         sImageLoader = new ImageLoader(getRequestQueue(), new LruBitmapCache(maxSize));
+    }
+
+    public static OkHttpClient getOkHttpClient() {
+        if (sOkHttpClient != null) {
+            return sOkHttpClient;
+        } else {
+            throw new IllegalStateException("OKVolley not initialized");
+        }
     }
 
     public static RequestQueue getRequestQueue() {
@@ -45,6 +57,10 @@ public class OKVolley {
         } else {
             throw new IllegalStateException("OKVolley not initialized");
         }
+    }
+
+    public static void displayImage(String url, ImageView imageView, int defaultImageResId, int errorImageResId) {
+        OKVolley.getImageLoader().get(url, ImageLoader.getImageListener(imageView, defaultImageResId, errorImageResId));
     }
 
     public static void addRequest(Object tag, Request<?> request) {

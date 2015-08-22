@@ -16,15 +16,8 @@ import java.net.URL;
 public class OkHttpStack extends HurlStack {
     private OkUrlFactory mOkUrlFactory;
 
-    public OkHttpStack() {
-        this(new OkUrlFactory(new OkHttpClient()));
-    }
-
-    public OkHttpStack(OkUrlFactory okUrlFactory) {
-        if (okUrlFactory == null) {
-            throw new NullPointerException("okUrlFactory不能为空");
-        }
-        mOkUrlFactory = okUrlFactory;
+    public OkHttpStack(OkHttpClient okHttpClient) {
+        mOkUrlFactory = new OkUrlFactory(okHttpClient);
     }
 
     @Override
