@@ -1,0 +1,31 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion ANDROID_BUILD_SDK_VERSION as int
+    buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion ANDROID_BUILD_MIN_SDK_VERSION as int
+        targetSdkVersion ANDROID_BUILD_TARGET_SDK_VERSION as int
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:23.0.0'
+
+    compile 'com.mcxiaoke.volley:library:1.0.18'
+    compile('com.squareup.okhttp:okhttp:2.4.0') {
+        exclude group: 'com.squareup.okio', module: 'okio'
+    }
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
+    compile 'com.squareup.okio:okio:1.5.0'
+    compile 'com.google.code.gson:gson:2.3.1'
+
+    compile 'cn.pedant.sweetalert:library:1.3'
+}
+
+apply from: 'https://raw.githubusercontent.com/bingoogolapple/PublishAar/master/project/library/android-artifacts.gradle'
+// 上传到Maven中央仓库  gradle -q uploadArchives
+apply from: 'https://raw.githubusercontent.com/bingoogolapple/PublishAar/master/project/library/central-publish.gradle'
+// 上传到jCenter       gradle bintrayUpload
+apply from: 'https://raw.githubusercontent.com/bingoogolapple/PublishAar/master/project/library/bintray-publish.gradle'

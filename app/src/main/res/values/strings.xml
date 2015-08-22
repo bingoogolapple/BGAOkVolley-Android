@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">VolleyNote</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="loading_data_tip">数据加载中，请稍候</string>
-</resources>

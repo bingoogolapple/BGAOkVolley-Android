@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">OkVolleyDemo</string>
+    <string name="loading_data_tip">数据加载中，请稍候</string>
+</resources>
