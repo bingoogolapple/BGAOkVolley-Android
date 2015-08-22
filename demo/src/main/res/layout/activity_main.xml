@@ -48,6 +48,11 @@
 
         <TextView
             style="@style/MainTv"
+            android:onClick="uploadImg"
+            android:text="uploadImg" />
+
+        <TextView
+            style="@style/MainTv"
             android:onClick="testApiResponseNormal"
             android:text="testApiResponseNormal" />
 

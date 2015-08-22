@@ -11,6 +11,7 @@ import com.android.volley.toolbox.Volley;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
@@ -18,6 +19,7 @@ import java.util.Map;
  * 描述:
  */
 public class OKVolley {
+    public static final int HTTP_TIMEOUT = 30000;
     private static RequestQueue sRequestQueue;
     private static ImageLoader sImageLoader;
     private static OkHttpClient sOkHttpClient;
@@ -31,6 +33,8 @@ public class OKVolley {
 
     public static void init(Context context, int maxSize) {
         sOkHttpClient = new OkHttpClient();
+        sOkHttpClient.setConnectTimeout(HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+        sOkHttpClient.setReadTimeout(HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
         sRequestQueue = Volley.newRequestQueue(context, new OkHttpStack(sOkHttpClient));
         sImageLoader = new ImageLoader(getRequestQueue(), new LruBitmapCache(maxSize));
     }

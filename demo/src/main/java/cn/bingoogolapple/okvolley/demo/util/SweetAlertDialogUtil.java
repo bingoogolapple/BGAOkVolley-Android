@@ -29,4 +29,8 @@ public class SweetAlertDialogUtil {
     public static void showSuccess(Activity activity, String title, String desc) {
         new SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE).setTitleText(title).setContentText(desc).show();
     }
+
+    public static void showProgress(Activity activity, String title) {
+        new SweetAlertDialog(activity, SweetAlertDialog.PROGRESS_TYPE).setTitleText(title).show();
+    }
 }
