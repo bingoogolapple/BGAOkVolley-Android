@@ -19,7 +19,10 @@ import java.util.concurrent.TimeUnit;
  * 描述:
  */
 public class OKVolley {
-    public static final int HTTP_TIMEOUT = 30000;
+    /**
+     * 默认的http请求超时时间为30秒
+     */
+    private static final int DEFAULT_HTTP_TIMEOUT = 30000;
     private static RequestQueue sRequestQueue;
     private static ImageLoader sImageLoader;
     private static OkHttpClient sOkHttpClient;
@@ -32,19 +35,56 @@ public class OKVolley {
     }
 
     public static void init(Context context, int maxSize) {
-        sOkHttpClient = new OkHttpClient();
-        sOkHttpClient.setConnectTimeout(HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
-        sOkHttpClient.setReadTimeout(HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
-        sRequestQueue = Volley.newRequestQueue(context, new OkHttpStack(sOkHttpClient));
-        sImageLoader = new ImageLoader(getRequestQueue(), new LruBitmapCache(maxSize));
+        // 双重检测。由于最后初始化的sImageLoader，所以这里检测sImageLoader是否为空
+        if (sImageLoader == null) {
+            synchronized (OKVolley.class) {
+                if (sImageLoader == null) {
+                    initOkHttpClient();
+                    initRequestQueue(context);
+                    initImageLoader(maxSize);
+                }
+            }
+        }
     }
 
+    private static void initOkHttpClient() {
+        sOkHttpClient = new OkHttpClient();
+        OKVolley.setConnectTimeout(DEFAULT_HTTP_TIMEOUT);
+        OKVolley.setReadTimeout(DEFAULT_HTTP_TIMEOUT);
+        OKVolley.setWriteTimeout(DEFAULT_HTTP_TIMEOUT);
+    }
+
+    private static void initRequestQueue(Context context) {
+        sRequestQueue = Volley.newRequestQueue(context, new OkHttpStack(sOkHttpClient));
+    }
+
+    private static void initImageLoader(int maxSize) {
+        sImageLoader = new ImageLoader(sRequestQueue, new LruBitmapCache(maxSize));
+    }
+
+    /**
+     * 如果有什么特殊的设置，通过该方法拿到OkHttpClient进行设置
+     *
+     * @return 返回全局唯一OkHttpClient示例
+     */
     public static OkHttpClient getOkHttpClient() {
         if (sOkHttpClient != null) {
             return sOkHttpClient;
         } else {
             throw new IllegalStateException("OKVolley not initialized");
         }
+    }
+
+    public static void setConnectTimeout(long timeout) {
+        getOkHttpClient().setConnectTimeout(timeout, TimeUnit.MILLISECONDS);
+    }
+
+    public static void setReadTimeout(long timeout) {
+        getOkHttpClient().setReadTimeout(timeout, TimeUnit.MILLISECONDS);
+    }
+
+    public static void setWriteTimeout(long timeout) {
+        getOkHttpClient().setWriteTimeout(timeout, TimeUnit.MILLISECONDS);
     }
 
     public static RequestQueue getRequestQueue() {
@@ -71,15 +111,15 @@ public class OKVolley {
         if (tag != null) {
             request.setTag(tag);
         }
-        getRequestQueue().add(request);
+        OKVolley.getRequestQueue().add(request);
     }
 
     public static void cancelAll(Object tag) {
-        sRequestQueue.cancelAll(tag);
+        OKVolley.getRequestQueue().cancelAll(tag);
     }
 
     public static void post(String url, final Map<String, String> params, VolleyRespDelegate responseListener) {
-        addRequest(responseListener.getTag(), new StringRequest(Request.Method.POST, url, responseListener, responseListener.getErrorListener()) {
+        OKVolley.addRequest(responseListener.getTag(), new StringRequest(Request.Method.POST, url, responseListener, responseListener.getErrorListener()) {
             protected Map<String, String> getParams() {
                 return params;
             }
@@ -87,6 +127,6 @@ public class OKVolley {
     }
 
     public static void get(String url, VolleyRespDelegate responseListener) {
-        addRequest(responseListener.getTag(), new StringRequest(Request.Method.GET, url, responseListener, responseListener.getErrorListener()));
+        OKVolley.addRequest(responseListener.getTag(), new StringRequest(Request.Method.GET, url, responseListener, responseListener.getErrorListener()));
     }
 }
