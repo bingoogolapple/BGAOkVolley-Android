@@ -2,9 +2,9 @@ package cn.bingoogolapple.okvolley.demo;
 
 import android.app.Application;
 
-import cn.bingoogolapple.okvolley.ApiRespDelegate;
+import cn.bingoogolapple.okvolley.ApiRespHandler;
 import cn.bingoogolapple.okvolley.OKVolley;
-import cn.bingoogolapple.okvolley.VolleyRespDelegate;
+import cn.bingoogolapple.okvolley.VolleyRespHandler;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
@@ -22,10 +22,9 @@ public class App extends Application {
         // 初始化Volley
         OKVolley.init(this);
         // 初始化ApiRespDelegate
-        ApiRespDelegate.init("error_code", "error_description", "content", 0, -1);
+        ApiRespHandler.init("error_code", "error_description", "content", 0, -1);
         // 设置为调试阶段打印日志
-        VolleyRespDelegate.setIsDebug(BuildConfig.IS_DEVELOP_MODE);
-        VolleyRespDelegate.setLoadingMessage(getString(R.string.loading_data_tip));
+        VolleyRespHandler.setIsDebug(BuildConfig.IS_DEVELOP_MODE);
     }
 
     public static App getInstance() {

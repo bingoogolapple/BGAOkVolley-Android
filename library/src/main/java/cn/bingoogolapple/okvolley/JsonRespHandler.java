@@ -1,6 +1,8 @@
 package cn.bingoogolapple.okvolley;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 
@@ -14,11 +16,15 @@ import java.util.Collection;
  * 创建时间:15/7/2 10:14
  * 描述:
  */
-public abstract class JsonRespDelegate<T> extends VolleyRespDelegate<T> {
+public abstract class JsonRespHandler<T> extends VolleyRespHandler<T> {
     protected static Gson sGson = new Gson();
 
-    protected JsonRespDelegate(Object tag, Activity activity) {
-        super(tag, activity);
+    protected JsonRespHandler(@NonNull Object tag) {
+        super(tag);
+    }
+
+    protected JsonRespHandler(@NonNull Object tag, @NonNull Activity activity, @Nullable String loadingMsg) {
+        super(tag, activity, loadingMsg);
     }
 
     protected Class<T> getTClass() {

@@ -1,6 +1,8 @@
 package cn.bingoogolapple.okvolley;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import org.json.JSONObject;
 
@@ -12,7 +14,7 @@ import java.util.List;
  * 创建时间:15/7/2 10:20
  * 描述:
  */
-public abstract class ApiRespDelegate<T> extends JsonRespDelegate<T> {
+public abstract class ApiRespHandler<T> extends JsonRespHandler<T> {
     /*
     {
         "error_code": 0,
@@ -44,11 +46,15 @@ public abstract class ApiRespDelegate<T> extends JsonRespDelegate<T> {
      */
     private static int sSuccessCode = 0;
 
-    public ApiRespDelegate(Object tag, Activity activity) {
-        super(tag, activity);
+    public ApiRespHandler(@NonNull Object tag) {
+        super(tag);
     }
 
-    public static void init(String errorCodeKeyName, String errorDescriptionKeyName, String contentKeyName, int successCode, Integer ... jumpToLoginCodes) {
+    public ApiRespHandler(@NonNull Object tag, @NonNull Activity activity, @Nullable String loadingMsg) {
+        super(tag, activity, loadingMsg);
+    }
+
+    public static void init(String errorCodeKeyName, String errorDescriptionKeyName, String contentKeyName, int successCode, Integer... jumpToLoginCodes) {
         sErrorCodeKeyName = errorCodeKeyName;
         sErrorDescriptionKeyName = errorDescriptionKeyName;
         sContentKeyName = contentKeyName;

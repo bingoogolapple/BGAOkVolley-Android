@@ -20,9 +20,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class OKVolley {
     /**
-     * 默认的http请求超时时间为30秒
+     * 默认的http请求超时时间为5秒
      */
-    private static final int DEFAULT_HTTP_TIMEOUT = 30000;
+    private static final int DEFAULT_HTTP_TIMEOUT = 5000;
     private static RequestQueue sRequestQueue;
     private static ImageLoader sImageLoader;
     private static OkHttpClient sOkHttpClient;
@@ -118,15 +118,15 @@ public class OKVolley {
         OKVolley.getRequestQueue().cancelAll(tag);
     }
 
-    public static void post(String url, final Map<String, String> params, VolleyRespDelegate responseListener) {
-        OKVolley.addRequest(responseListener.getTag(), new StringRequest(Request.Method.POST, url, responseListener, responseListener.getErrorListener()) {
+    public static void post(String url, final Map<String, String> params, VolleyRespListener responseListener) {
+        OKVolley.addRequest(responseListener.getTag(), new StringRequest(Request.Method.POST, url, responseListener, responseListener) {
             protected Map<String, String> getParams() {
                 return params;
             }
         });
     }
 
-    public static void get(String url, VolleyRespDelegate responseListener) {
-        OKVolley.addRequest(responseListener.getTag(), new StringRequest(Request.Method.GET, url, responseListener, responseListener.getErrorListener()));
+    public static void get(String url, VolleyRespListener responseListener) {
+        OKVolley.addRequest(responseListener.getTag(), new StringRequest(Request.Method.GET, url, responseListener, responseListener));
     }
 }

@@ -22,11 +22,11 @@ import java.util.ArrayList;
 
 import cn.bingoogolapple.okvolley.OKVolley;
 import cn.bingoogolapple.okvolley.RoundedNetworkImageView;
-import cn.bingoogolapple.okvolley.StringRespDelegate;
+import cn.bingoogolapple.okvolley.StringRespHandler;
 import cn.bingoogolapple.okvolley.demo.R;
 import cn.bingoogolapple.okvolley.demo.engine.ApiClient;
-import cn.bingoogolapple.okvolley.demo.engine.SimpleApiRespDelegate;
-import cn.bingoogolapple.okvolley.demo.engine.SimpleGsonRespDelegate;
+import cn.bingoogolapple.okvolley.demo.engine.SimpleApiRespHandler;
+import cn.bingoogolapple.okvolley.demo.engine.SimpleGsonRespHandler;
 import cn.bingoogolapple.okvolley.demo.model.Nest;
 import cn.bingoogolapple.okvolley.demo.model.Normal;
 import cn.bingoogolapple.okvolley.demo.util.StorageUtil;
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseNormal(View v) {
-        ApiClient.testApiResponseNormal(new SimpleApiRespDelegate<Normal>(this, this) {
+        ApiClient.testApiResponseNormal(new SimpleApiRespHandler<Normal>(this, this) {
             @Override
             public void onSucess(Normal content) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseList(View v) {
-        ApiClient.testApiResponseList(new SimpleApiRespDelegate<ArrayList<Normal>>(this, this) {
+        ApiClient.testApiResponseList(new SimpleApiRespHandler<ArrayList<Normal>>(this, this) {
             @Override
             public void onSucess(ArrayList<Normal> content) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseNest(View v) {
-        ApiClient.testApiResponseNest(new SimpleApiRespDelegate<Nest>(this, this) {
+        ApiClient.testApiResponseNest(new SimpleApiRespHandler<Nest>(this, this) {
             @Override
             public void onSucess(Nest content) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseNeedLogin(View v) {
-        ApiClient.testApiResponseNeedLogin(new SimpleApiRespDelegate<Normal>(this, this) {
+        ApiClient.testApiResponseNeedLogin(new SimpleApiRespHandler<Normal>(this, this) {
             @Override
             public void onSucess(Normal content) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseFailure(View v) {
-        ApiClient.testApiResponseFailure(new SimpleApiRespDelegate<Normal>(this, this) {
+        ApiClient.testApiResponseFailure(new SimpleApiRespHandler<Normal>(this, this) {
             @Override
             public void onSucess(Normal content) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testApiResponseJsonError(View v) {
-        ApiClient.testApiResponseJsonError("参数1", "参数2", new SimpleApiRespDelegate<Normal>(this, this) {
+        ApiClient.testApiResponseJsonError("参数1", "参数2", new SimpleApiRespHandler<Normal>(this, this) {
             @Override
             public void onSucess(Normal content) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testGsonResponseNormal(View v) {
-        ApiClient.testGsonResponseNormal(new SimpleGsonRespDelegate<Normal>(this, this) {
+        ApiClient.testGsonResponseNormal(new SimpleGsonRespHandler<Normal>(this, this) {
             @Override
             public void onSucess(Normal content) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testGsonResponseNest(View v) {
-        ApiClient.testGsonResponseNest("参数1", "参数2", new SimpleGsonRespDelegate<Nest>(this, this) {
+        ApiClient.testGsonResponseNest("参数1", "参数2", new SimpleGsonRespHandler<Nest>(this, this) {
             @Override
             public void onSucess(Nest content) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testGsonResponseList(View v) {
-        ApiClient.testGsonResponseList(new SimpleGsonRespDelegate<ArrayList<Normal>>(this, this) {
+        ApiClient.testGsonResponseList(new SimpleGsonRespHandler<ArrayList<Normal>>(this, this) {
             @Override
             public void onSucess(ArrayList<Normal> content) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testGsonResponseJsonError(View v) {
-        ApiClient.testGsonResponseJsonError(new SimpleGsonRespDelegate<Normal>(this, this) {
+        ApiClient.testGsonResponseJsonError(new SimpleGsonRespHandler<Normal>(this, this) {
             @Override
             public void onSucess(Normal content) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
@@ -243,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testGetText(View v) {
-        ApiClient.testGetText(new StringRespDelegate(this, this) {
+        ApiClient.testGetText(new StringRespHandler(this, this, null) {
             @Override
             public void onSucess(String content) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");

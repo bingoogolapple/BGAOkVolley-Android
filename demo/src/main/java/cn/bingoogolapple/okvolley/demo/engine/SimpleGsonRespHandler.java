@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.android.volley.VolleyError;
 
-import cn.bingoogolapple.okvolley.GsonRespDelegate;
+import cn.bingoogolapple.okvolley.GsonRespHandler;
 import cn.bingoogolapple.okvolley.demo.util.SweetAlertDialogUtil;
 
 /**
@@ -12,15 +12,15 @@ import cn.bingoogolapple.okvolley.demo.util.SweetAlertDialogUtil;
  * 创建时间:15/8/22 下午2:15
  * 描述:这里给个默认的实现，根据公司业务重写相应方法
  */
-public abstract class SimpleGsonRespDelegate<T> extends GsonRespDelegate<T> {
+public abstract class SimpleGsonRespHandler<T> extends GsonRespHandler<T> {
 
-    public SimpleGsonRespDelegate(Object tag, Activity activity) {
-        super(tag, activity);
+    public SimpleGsonRespHandler(Object tag, Activity activity) {
+        super(tag, activity, "数据加载中");
     }
 
     @Override
     protected void onJsonError(Exception e) {
-        SweetAlertDialogUtil.showWarning(mActivity, "提示", "服务器异常");
+        SweetAlertDialogUtil.showWarning(mActivity, "提示", "Json解析错误");
     }
 
     @Override
