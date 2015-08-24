@@ -35,7 +35,7 @@ public abstract class JsonRespHandler<T> extends VolleyRespHandler<T> {
 //            try {
 //                Field field = resultType.getClass().getDeclaredField("rawTypeName");
 //                field.setAccessible(true);
-//                String rawTypeName = (String) field.get(resultType);
+//                String rawTypeName = (String) field.getWithCache(resultType);
 //                return (Class<T>) Class.forName(rawTypeName);
 //            } catch (Exception e) {
 //                return (Class<T>) Collection.class;

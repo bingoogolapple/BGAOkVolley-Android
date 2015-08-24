@@ -6,7 +6,7 @@
     </style>
 
     <style name="MainTv" parent="MatchWrap">
-        <item name="android:background">#B2DB4D</item>
+        <item name="android:background">@drawable/selector_maintv</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@android:color/white</item>

@@ -3,6 +3,7 @@ package cn.bingoogolapple.okvolley;
 import android.content.Context;
 import android.widget.ImageView;
 
+import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
@@ -118,15 +119,44 @@ public class OKVolley {
         OKVolley.getRequestQueue().cancelAll(tag);
     }
 
-    public static void post(String url, final Map<String, String> params, VolleyRespListener responseListener) {
-        OKVolley.addRequest(responseListener.getTag(), new StringRequest(Request.Method.POST, url, responseListener, responseListener) {
+    public static void postWithCache(String url, Map<String, String> params, VolleyRespListener responseListener) {
+        post(url, params, true, responseListener);
+    }
+
+    public static void postWithoutCache(String url, Map<String, String> params, VolleyRespListener responseListener) {
+        post(url, params, false, responseListener);
+    }
+
+    private static void post(String url, final Map<String, String> params, boolean shouldCache, VolleyRespListener responseListener) {
+        Request request = new StringRequest(Request.Method.POST, url, responseListener, responseListener) {
             protected Map<String, String> getParams() {
                 return params;
             }
-        });
+        };
+        request.setShouldCache(shouldCache);
+        OKVolley.addRequest(responseListener.getTag(), request);
     }
 
-    public static void get(String url, VolleyRespListener responseListener) {
-        OKVolley.addRequest(responseListener.getTag(), new StringRequest(Request.Method.GET, url, responseListener, responseListener));
+    public static void getWithCache(String url, VolleyRespListener responseListener) {
+        get(url, true, responseListener);
     }
+
+    public static void getWithoutCache(String url, VolleyRespListener responseListener) {
+        get(url, false, responseListener);
+    }
+
+    private static void get(String url, boolean shouldCache, VolleyRespListener responseListener) {
+        Request request = new StringRequest(Request.Method.GET, url, responseListener, responseListener);
+        request.setShouldCache(shouldCache);
+        OKVolley.addRequest(responseListener.getTag(), request);
+    }
+
+    public static Cache getCache() {
+        return OKVolley.getRequestQueue().getCache();
+    }
+
+    public static void clearCache() {
+        OKVolley.getCache().clear();
+    }
+
 }

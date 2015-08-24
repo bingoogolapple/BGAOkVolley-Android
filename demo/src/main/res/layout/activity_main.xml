@@ -53,6 +53,11 @@
 
         <TextView
             style="@style/MainTv"
+            android:onClick="clearAllCache"
+            android:text="clearAllCache" />
+
+        <TextView
+            style="@style/MainTv"
             android:onClick="testApiResponseNormal"
             android:text="testApiResponseNormal" />
 

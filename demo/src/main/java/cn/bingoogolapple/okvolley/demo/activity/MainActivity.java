@@ -152,6 +152,10 @@ public class MainActivity extends AppCompatActivity {
         }.execute();
     }
 
+    public void clearAllCache(View v) {
+        OKVolley.clearCache();
+    }
+
     public void testApiResponseNormal(View v) {
         ApiClient.testApiResponseNormal(new SimpleApiRespHandler<Normal>(this, this) {
             @Override
