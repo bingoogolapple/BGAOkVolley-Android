@@ -72,7 +72,7 @@ public abstract class ApiRespHandler<T> extends JsonRespHandler<T> {
             if (sJumpToLoginCodes.contains(resultCode)) {
                 jumpToLogin();
             } else if (resultCode == sSuccessCode) {
-                onSucess(sGson.fromJson(jsonObject.getString(sContentKeyName), getTClass()));
+                onSucess(sGson.fromJson(jsonObject.getString(sContentKeyName), getTClass()), jsonObject.getString(sErrorDescriptionKeyName));
             } else {
                 onFailure(resultCode, jsonObject.getString(sErrorDescriptionKeyName));
             }
@@ -84,5 +84,7 @@ public abstract class ApiRespHandler<T> extends JsonRespHandler<T> {
     protected abstract void jumpToLogin();
 
     protected abstract void onFailure(int errorCode, String errorDescription);
+
+    protected abstract void onSucess(T content, String msg);
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="green_normal">#B3B2DB4D</color>
+    <color name="green_normal">#CCB2DB4D</color>
     <color name="green_pressed">#B2DB4D</color>
 </resources>

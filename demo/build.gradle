@@ -26,7 +26,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.0'
 
 //    compile project(':library')
-    compile 'cn.bingoogolapple:bga-okvolley:1.0.0@aar'
+    compile 'cn.bingoogolapple:bga-okvolley:1.0.1@aar'
     compile 'com.mcxiaoke.volley:library:1.0.18'
     compile('com.squareup.okhttp:okhttp:2.4.0') {
         exclude group: 'com.squareup.okio', module: 'okio'

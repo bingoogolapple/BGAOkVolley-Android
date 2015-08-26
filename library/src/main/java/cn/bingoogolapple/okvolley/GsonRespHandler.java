@@ -27,4 +27,6 @@ public abstract class GsonRespHandler<T> extends JsonRespHandler<T> {
             onJsonError(e);
         }
     }
+
+    protected abstract void onSucess(T content);
 }

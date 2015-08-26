@@ -19,4 +19,10 @@ public abstract class StringRespHandler extends VolleyRespHandler<String> {
         super(tag, activity, loadingMsg);
     }
 
+    @Override
+    protected void handleResponse(String response) {
+        onSucess(response);
+    }
+
+    protected abstract void onSucess(String content);
 }

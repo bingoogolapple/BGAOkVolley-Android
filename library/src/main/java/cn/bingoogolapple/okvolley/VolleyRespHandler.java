@@ -21,6 +21,7 @@ public abstract class VolleyRespHandler<T> implements VolleyRespListener<String>
     protected SweetAlertDialog mLoadingDialog;
     protected Object mTag;
     protected Activity mActivity;
+    protected String mUrl;
 
     /**
      * 用于在Service中的网络请求，不需要显示网络数据加载对话框
@@ -63,7 +64,7 @@ public abstract class VolleyRespHandler<T> implements VolleyRespListener<String>
         closeLoadingDialog();
 
         if (sIsDebug) {
-            Log.d(TAG, "response\n-------------------- START --------------------\n" + response + "\n-------------------- END --------------------");
+            Log.d(TAG, mUrl + "\n-------------------- START --------------------\n" + response + "\n-------------------- END --------------------");
         }
 
         handleResponse(response);
@@ -71,18 +72,14 @@ public abstract class VolleyRespHandler<T> implements VolleyRespListener<String>
         onFinish();
     }
 
-    protected void handleResponse(String response) {
-        onSucess((T) response);
-    }
-
-    protected abstract void onSucess(T content);
+    protected abstract void handleResponse(String response);
 
     protected abstract void onNetError(VolleyError error);
 
     /**
      * 不管请求成功还是失败，最后都会调用该方法，这里给个默认的实现
      */
-    public void onFinish() {
+    protected void onFinish() {
     }
 
     private void showLoadingDialog(String loadingMsg) {
@@ -100,7 +97,12 @@ public abstract class VolleyRespHandler<T> implements VolleyRespListener<String>
         }
     }
 
+    public void setUrl(@NonNull String url) {
+        mUrl = url;
+    }
+
     public static void setIsDebug(boolean isDebug) {
         sIsDebug = isDebug;
     }
+
 }

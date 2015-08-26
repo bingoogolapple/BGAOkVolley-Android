@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     public void testApiResponseNormal(View v) {
         ApiClient.testApiResponseNormal(new SimpleApiRespHandler<Normal>(this, this) {
             @Override
-            public void onSucess(Normal content) {
+            public void onSucess(Normal content, String msg) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
             }
         });
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
     public void testApiResponseList(View v) {
         ApiClient.testApiResponseList(new SimpleApiRespHandler<ArrayList<Normal>>(this, this) {
             @Override
-            public void onSucess(ArrayList<Normal> content) {
+            public void onSucess(ArrayList<Normal> content, String msg) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
             }
         });
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     public void testApiResponseNest(View v) {
         ApiClient.testApiResponseNest(new SimpleApiRespHandler<Nest>(this, this) {
             @Override
-            public void onSucess(Nest content) {
+            public void onSucess(Nest content, String msg) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
             }
         });
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
     public void testApiResponseNeedLogin(View v) {
         ApiClient.testApiResponseNeedLogin(new SimpleApiRespHandler<Normal>(this, this) {
             @Override
-            public void onSucess(Normal content) {
+            public void onSucess(Normal content, String msg) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
             }
         });
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
     public void testApiResponseFailure(View v) {
         ApiClient.testApiResponseFailure(new SimpleApiRespHandler<Normal>(this, this) {
             @Override
-            public void onSucess(Normal content) {
+            public void onSucess(Normal content, String msg) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
             }
         });
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
     public void testApiResponseJsonError(View v) {
         ApiClient.testApiResponseJsonError("参数1", "参数2", new SimpleApiRespHandler<Normal>(this, this) {
             @Override
-            public void onSucess(Normal content) {
+            public void onSucess(Normal content, String msg) {
                 SweetAlertDialogUtil.showSuccess(mActivity, "提示", "请求成功");
             }
         });

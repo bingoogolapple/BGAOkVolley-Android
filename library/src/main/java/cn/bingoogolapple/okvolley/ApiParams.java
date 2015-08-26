@@ -9,8 +9,33 @@ import java.util.HashMap;
  */
 public class ApiParams extends HashMap<String, String> {
 
+    public ApiParams() {
+    }
+
+    public ApiParams(String key, String value) {
+        put(key, value);
+    }
+
+    public ApiParams(String key, int value) {
+        put(key, String.valueOf(value));
+    }
+
+    public ApiParams(String key, long value) {
+        put(key, String.valueOf(value));
+    }
+
     public ApiParams with(String key, String value) {
         put(key, value);
+        return this;
+    }
+
+    public ApiParams with(String key, int value) {
+        put(key, String.valueOf(value));
+        return this;
+    }
+
+    public ApiParams with(String key, long value) {
+        put(key, String.valueOf(value));
         return this;
     }
 
