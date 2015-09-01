@@ -10,6 +10,8 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.squareup.okhttp.OkHttpClient;
 
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -59,8 +61,19 @@ public class OKVolley {
         sRequestQueue.start();
     }
 
+
     private static void initImageLoader(int maxSize) {
         sImageLoader = new ImageLoader(sRequestQueue, new LruBitmapCache(maxSize));
+    }
+
+
+    /**
+     * 设置cookie本地存储
+     *
+     * @param context
+     */
+    public static void setCookieStore(Context context) {
+        getOkHttpClient().setCookieHandler(new CookieManager(new PersistentCookieStore(context), CookiePolicy.ACCEPT_ALL));
     }
 
     /**
