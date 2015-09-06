@@ -10,6 +10,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.squareup.okhttp.OkHttpClient;
 
+import java.io.File;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.Map;
@@ -17,6 +18,8 @@ import java.util.concurrent.TimeUnit;
 
 import xyz.yhsj.okvolley.cache.LruBitmapCache;
 import xyz.yhsj.okvolley.cookie.PersistentCookieStore;
+import xyz.yhsj.okvolley.file.BaseHttp;
+import xyz.yhsj.okvolley.file.FileRequestListener;
 import xyz.yhsj.okvolley.handler.VolleyRespHandler;
 import xyz.yhsj.okvolley.request.OkHttpStack;
 import xyz.yhsj.okvolley.request.UTF8StringRequest;
@@ -72,7 +75,6 @@ public class OKVolley {
         sImageLoader = new ImageLoader(sRequestQueue, new LruBitmapCache(maxSize));
     }
 
-
     /**
      * 设置cookie本地存储
      *
@@ -107,6 +109,9 @@ public class OKVolley {
         getOkHttpClient().setWriteTimeout(timeout, TimeUnit.MILLISECONDS);
     }
 
+
+    //================================================================================
+
     public static RequestQueue getRequestQueue() {
         if (sRequestQueue != null) {
             return sRequestQueue;
@@ -123,19 +128,9 @@ public class OKVolley {
         }
     }
 
+    //=================================================================================
     public static void displayImage(String url, ImageView imageView, int defaultImageResId, int errorImageResId) {
         OKVolley.getImageLoader().get(url, ImageLoader.getImageListener(imageView, defaultImageResId, errorImageResId));
-    }
-
-    public static void addRequest(Object tag, Request<?> request) {
-        if (tag != null) {
-            request.setTag(tag);
-        }
-        OKVolley.getRequestQueue().add(request);
-    }
-
-    public static void cancelAll(Object tag) {
-        OKVolley.getRequestQueue().cancelAll(tag);
     }
 
     public static void postWithCache(String url, Map<String, String> params, VolleyRespHandler respHandler) {
@@ -153,6 +148,39 @@ public class OKVolley {
     public static void getWithoutCache(String url, VolleyRespHandler respHandler) {
         get(url, false, respHandler);
     }
+
+    /*-----------------------------HTTP文件上传-------------------------------------*/
+    public static void updateFile(String url, Map<String, String> params, File[] files, String[] fileKeys, FileRequestListener listener) {
+        BaseHttp.addUpdateRequest(url, params, files, fileKeys, listener);
+    }
+
+    public static void updateFile(String url, Map<String, String> params, File file, String fileKey, FileRequestListener listener) {
+        BaseHttp.addUpdateRequest(url, params, new File[]{file}, new String[]{fileKey}, listener);
+    }
+
+    /*-----------------------------文件下载-------------------------------------*/
+    public static void download(String url, String fileDir, FileRequestListener listener) {
+        BaseHttp.addDownloadRequest(url, fileDir, listener);
+    }
+
+    /*-----------------------------取消一个请求-------------------------------------*/
+    public static void cancelFileRequestWithUrl(String url) {
+        BaseHttp.cancel(url);
+    }
+
+
+    public static void cancelAll(Object tag) {
+        OKVolley.getRequestQueue().cancelAll(tag);
+    }
+
+    public static void addRequest(Object tag, Request<?> request) {
+        if (tag != null) {
+            request.setTag(tag);
+        }
+        OKVolley.getRequestQueue().add(request);
+    }
+
+// =============================================================================================
 
     /**
      * post基类

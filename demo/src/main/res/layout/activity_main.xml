@@ -28,7 +28,7 @@
                 android:layout_margin="5dp"
                 android:src="@mipmap/avatar_default" />
 
-            <cn.bingoogolapple.okvolley.RoundedNetworkImageView
+            <xyz.yhsj.okvolley.image.RoundedNetworkImageView
                 android:id="@+id/rniv_main_avatar"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -36,7 +36,7 @@
                 android:src="@mipmap/avatar_default"
                 app:rniv_errorImage="@mipmap/avatar_error" />
 
-            <cn.bingoogolapple.okvolley.RoundedNetworkImageView
+            <xyz.yhsj.okvolley.image.RoundedNetworkImageView
                 android:id="@+id/rniv_main_avatarRounded"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
