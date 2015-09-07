@@ -30,7 +30,7 @@ public class DoRequest {
 
     private DoRequest() {
         mOkHttpClient = OKVolley.getOkHttpClient();
-        mOkHttpClient.setCookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ORIGINAL_SERVER));
+        //mOkHttpClient.setCookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ORIGINAL_SERVER));
         mDelivery = new Handler(Looper.getMainLooper());
     }
 
@@ -62,9 +62,7 @@ public class DoRequest {
             public void onResponse(final Response response) {
                 try {
                     String string = response.body().string();
-                    if (listener != null) {
-                        listener.onString(response, string);
-                    }
+
                     onHttpSuccess(response, listener, string);
                 } catch (Exception e) {
                     onHttpError(request, e, listener);
@@ -105,11 +103,12 @@ public class DoRequest {
                     }
                     File file = new File(dir, getFileName(url));
                     fos = new FileOutputStream(file);
-                    int progress = 0, len = 0;
+                    int bytesWritten = 0, len = 0;
                     while ((len = is.read(buf)) != -1) {
-                        progress += len;
+                        bytesWritten += len;
                         fos.write(buf, 0, len);
-                        if (listener != null) listener.onProgress(contentLength, progress);
+                        if (listener != null)
+                            listener.onProgress(contentLength, bytesWritten, bytesWritten == contentLength);
                     }
                     fos.flush();
                     //如果下载文件成功，第一个参数为文件的绝对路径

@@ -16,11 +16,7 @@ public abstract class FileRequestListener {
         e.printStackTrace();
     }
 
-
-    public void onString(Response request, String string) {
-    }
-
-    public void onProgress(long contentLength, long progress) {
+    public void onProgress(long contentLength, long progress, boolean done) {
 
     }
 

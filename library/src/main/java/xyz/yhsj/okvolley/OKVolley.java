@@ -13,6 +13,7 @@ import com.squareup.okhttp.OkHttpClient;
 import java.io.File;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -41,11 +42,11 @@ public class OKVolley {
     private OKVolley() {
     }
 
-    public static void init(Context context) {
-        init(context, LruBitmapCache.getCacheSize(context));
+    public static void init(Context context, boolean setCookie) {
+        init(context, setCookie, LruBitmapCache.getCacheSize(context));
     }
 
-    public static void init(Context context, int maxSize) {
+    public static void init(Context context, boolean setCookie, int maxSize) {
         // 双重检测。由于最后初始化的sImageLoader，所以这里检测sImageLoader是否为空
         if (sImageLoader == null) {
             synchronized (OKVolley.class) {
@@ -53,6 +54,9 @@ public class OKVolley {
                     initOkHttpClient();
                     initRequestQueue(context);
                     initImageLoader(maxSize);
+                    if (setCookie) {
+                        setCookieStore(context);
+                    }
                 }
             }
         }
@@ -150,12 +154,8 @@ public class OKVolley {
     }
 
     /*-----------------------------HTTP文件上传-------------------------------------*/
-    public static void updateFile(String url, Map<String, String> params, File[] files, String[] fileKeys, FileRequestListener listener) {
-        BaseHttp.addUpdateRequest(url, params, files, fileKeys, listener);
-    }
-
-    public static void updateFile(String url, Map<String, String> params, File file, String fileKey, FileRequestListener listener) {
-        BaseHttp.addUpdateRequest(url, params, new File[]{file}, new String[]{fileKey}, listener);
+    public static void updateFile(String url, Map<String, String> params, Map<String, File> fileParams, FileRequestListener listener) {
+        BaseHttp.addUpdateRequest(url, params,  fileParams, listener);
     }
 
     /*-----------------------------文件下载-------------------------------------*/

@@ -20,33 +20,42 @@ public class GetRequest {
     /**
      * 上传文件
      *
-     * @param url      请求地址
-     * @param files    文件，可多文件
-     * @param fileKeys
-     * @param params   参数
+     * @param url        请求地址
+     * @param fileParams 文件，可多文件
+     * @param params     参数
      * @return
      */
-    public static Request requestFile(String url, File[] files, String[] fileKeys, Map<String, String> params) {
+    public static Request requestFile(String url, Map<String, File> fileParams, Map<String, String> params, FileRequestListener fileRequestListener) {
         MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
-        for (String key : params.keySet()) {
-            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + key + "\""), RequestBody.create(null, params.get(key)));
+
+        if (params != null) {
+            for (String key : params.keySet()) {
+                builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + key + "\""), RequestBody.create(null, params.get(key)));
+            }
         }
 
-        if (files != null) {
-            for (int i = 0; i < files.length; i++) {
-                File file = files[i];
+        if (fileParams != null) {
+
+            for (String key : fileParams.keySet()) {
+
+                File file = fileParams.get(key);
                 String fileName = file.getName();
 
                 String contentTypeFor = URLConnection.getFileNameMap().getContentTypeFor(fileName);
+
                 if (contentTypeFor == null) contentTypeFor = "application/octet-stream";
 
                 RequestBody fileBody = RequestBody.create(MediaType.parse(contentTypeFor), file);
+
                 //TODO 根据文件名设置contentType
-                builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + fileKeys[i] + "\"; filename=\"" + fileName + "\""), fileBody);
+                builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + key + "\"; filename=\"" + fileName + "\""), fileBody);
             }
+
         }
+
         RequestBody requestBody = builder.build();
-        return new Request.Builder().url(url).post(requestBody).tag(url).build();
+
+        return new Request.Builder().url(url).post(new ProgressRequestBody(requestBody, fileRequestListener)).tag(url).build();
     }
 
 

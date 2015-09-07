@@ -15,8 +15,8 @@ public class BaseHttp {
     /**
      * 添加一个 Post 文件上传 请求
      */
-    public static void addUpdateRequest(String url, Map<String, String> params, File[] files, String[] fileKeys, FileRequestListener fileRequestListener) {
-        Request request = GetRequest.requestFile(url, files, fileKeys, params);  //根据请求 类型，获取 Request
+    public static void addUpdateRequest(String url, Map<String, String> params, Map<String, File> fileParams, FileRequestListener fileRequestListener) {
+        Request request = GetRequest.requestFile(url, fileParams, params,fileRequestListener);  //根据请求 类型，获取 Request
         DoRequest.getInstance().doHttpRequest(request, fileRequestListener);  //处理请求
     }
 

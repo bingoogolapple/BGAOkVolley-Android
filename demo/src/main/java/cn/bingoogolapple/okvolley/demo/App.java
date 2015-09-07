@@ -21,11 +21,11 @@ public class App extends Application {
         sInstance = this;
 
         // 初始化Volley
-        OKVolley.init(this);
+        OKVolley.init(this, true);
         // 初始化ApiRespDelegate
         ApiRespHandler.init("error_code", "error_description", "content", 0, -1);
         // 设置为调试阶段打印日志
-        VolleyRespHandler.setIsDebug(BuildConfig.IS_DEVELOP_MODE);
+        VolleyRespHandler.setIsDebug(true);
     }
 
     public static App getInstance() {

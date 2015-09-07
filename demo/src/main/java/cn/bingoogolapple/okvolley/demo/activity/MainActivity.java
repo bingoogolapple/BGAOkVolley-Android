@@ -114,79 +114,37 @@ public class MainActivity extends AppCompatActivity {
         mSweetAlertDialog.setCancelable(false);
         mSweetAlertDialog.setTitleText("正在上传头像").show();
 
-        HashMap<String, String> par = new HashMap<>();
-        par.put("param1", "param1Value");
-        par.put("param2", "param2Value");
+        HashMap<String, String> params = new HashMap<>();
+        params.put("param1", "param1Value");
+        params.put("param2", "param2Value");
 
-        File uploadFile = StorageUtil.wiriteIcLauncherToFile();
-        OKVolley.updateFile("http://test.bingoogolapple.cn/UploadDownload/uploadAction.php", par, uploadFile, "myFile1", new FileRequestListener() {
+        HashMap<String, File> fileParams = new HashMap<>();
+        fileParams.put("myFile1", new File("/sdcard/1.doc"));
+
+        OKVolley.updateFile("http://test.bingoogolapple.cn/UploadDownload/uploadAction.php", params, fileParams, new FileRequestListener() {
             @Override
             public void success(com.squareup.okhttp.Response response, String result) {
-
+                Log.i(">>>>>", result);
                 mSweetAlertDialog.dismiss();
+                SweetAlertDialogUtil.showSuccess(MainActivity.this, "提示", "上传成功");
 
-                if (response.isSuccessful()) {
-                    SweetAlertDialogUtil.showSuccess(MainActivity.this, "提示", "上传成功");
-                } else {
-                    SweetAlertDialogUtil.showError(MainActivity.this, "提示", "上传失败");
-                }
             }
 
             @Override
-            public void onString(com.squareup.okhttp.Response request, String string) {
-                super.onString(request, string);
+            public void onProgress(long contentLength, long progress, boolean done) {
+                super.onProgress(contentLength, progress, done);
+                Log.i(">>>>>", contentLength + " =========> " + progress);
 
-                Log.i(">>>>>",string);
+            }
+
+            @Override
+            public void error(Request request, Exception e) {
+                super.error(request, e);
+                mSweetAlertDialog.dismiss();
+                SweetAlertDialogUtil.showError(MainActivity.this, "提示", "上传失败");
             }
         });
 
-//        new AsyncTask<Void, Void, Boolean>() {
-//            private SweetAlertDialog mSweetAlertDialog;
-//
-//            @Override
-//            protected void onPreExecute() {
-//                mSweetAlertDialog = new SweetAlertDialog(MainActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-//                mSweetAlertDialog.setCancelable(false);
-//                mSweetAlertDialog.setTitleText("正在上传头像").show();
-//            }
-//
-//            @Override
-//            protected Boolean doInBackground(Void... params) {
-//                try {
-//                    File uploadFile = StorageUtil.wiriteIcLauncherToFile();
-//
-//                    RequestBody requestBody = new MultipartBuilder().type(MultipartBuilder.FORM)
-//                            .addFormDataPart("param1", "param1Value")
-//                            .addFormDataPart("param2", "param2Value")
-//                            .addFormDataPart("myFile1", "ic_launcher.png", RequestBody.create(MediaType.parse("image/png"), uploadFile))
-//                            .build();
-//
-//                    System.out.printf(requestBody.toString());
-//                    Request request = new Request.Builder()
-//                            .url("http://test.bingoogolapple.cn/UploadDownload/uploadAction.php")
-//                            .post(requestBody)
-//                            .build();
-//
-//                    com.squareup.okhttp.Response response = OKVolley.getOkHttpClient().newCall(request).execute();
-//                    // response = uploads/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.png     param1 = param1Value      param2 = param2Value
-//                    Log.i(TAG, "response = " + response.body().string());
-//                    return response.isSuccessful();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                return false;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(Boolean result) {
-//                mSweetAlertDialog.dismiss();
-//                if (result) {
-//                    SweetAlertDialogUtil.showSuccess(MainActivity.this, "提示", "上传成功");
-//                } else {
-//                    SweetAlertDialogUtil.showError(MainActivity.this, "提示", "上传失败");
-//                }
-//            }
-//        }.execute();
     }
 
     public void clearAllCache(View v) {
