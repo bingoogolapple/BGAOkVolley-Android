@@ -3,7 +3,8 @@
 
 将Volley+OkHttp+Gson的常用功能抽成一个Library，以便自己平时练习时用于请求网络数据
 1. Volley用于普通数据加载
-2. 文件上传是用的OkHttp
+2. 文件上传下载是用的OkHttp，同时支持进度回调
+3. 处理了返回结果的Unicode字符
 
 还加了RoundedNetworkImageView类：
 1. 支持在布局文件中预览、配置默认图片和失败时的图片
