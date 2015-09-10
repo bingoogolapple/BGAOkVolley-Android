@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         params.put("param2", "param2Value");
 
         HashMap<String, File> fileParams = new HashMap<>();
-        fileParams.put("myFile1", new File("/sdcard/1.doc"));
+        fileParams.put("myFile1", StorageUtil.wiriteIcLauncherToFile());
 
         OKVolley.updateFile("http://test.bingoogolapple.cn/UploadDownload/uploadAction.php", params, fileParams, new FileRequestListener() {
             @Override

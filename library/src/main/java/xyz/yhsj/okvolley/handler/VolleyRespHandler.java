@@ -9,6 +9,7 @@ import android.util.Log;
 import com.android.volley.VolleyError;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import xyz.yhsj.okvolley.utils.UnicodeTools;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
@@ -62,6 +63,9 @@ public abstract class VolleyRespHandler<T> implements VolleyRespListener<String>
     @Override
     public void onResponse(String response) {
         closeLoadingDialog();
+
+        //将unicode转换为中文
+        response = UnicodeTools.Unicode_2_String(response);
 
         if (sIsDebug) {
             Log.d(TAG, mUrl + "\n-------------------- START --------------------\n" + response + "\n-------------------- END --------------------");
