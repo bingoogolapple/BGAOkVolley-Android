@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchMatch">
+
+    <LinearLayout style="@style/MatchMatch.Vertical">
+
+        <LinearLayout style="@style/MatchWrap.Horizontal">
+
+            <ImageView
+                android:id="@+id/iv_main_avatar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                android:src="@mipmap/avatar_default" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_main_avatar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                android:src="@mipmap/avatar_default" />
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/niv_main_avatar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                android:src="@mipmap/avatar_default" />
+
+            <xyz.yhsj.okvolleylibary.image.RoundedNetworkImageView
+                android:id="@+id/rniv_main_avatar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                android:src="@mipmap/avatar_default"
+                app:rniv_errorImage="@mipmap/avatar_error" />
+
+            <xyz.yhsj.okvolleylibary.image.RoundedNetworkImageView
+                android:id="@+id/rniv_main_avatarRounded"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                android:src="@mipmap/avatar_default"
+                app:rniv_cornerRadius="20dp"
+                app:rniv_errorImage="@mipmap/avatar_error" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="uploadImg"
+            android:text="uploadImg" />
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="clearAllCache"
+            android:text="clearAllCache" />
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testApiResponseNormal"
+            android:text="testApiResponseNormal" />
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testApiResponseList"
+            android:text="testApiResponseList" />
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testApiResponseNest"
+            android:text="testApiResponseNest" />
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testApiResponseNeedLogin"
+            android:text="testApiResponseNeedLogin" />
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testApiResponseFailure"
+            android:text="testApiResponseFailure" />
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testApiResponseJsonError"
+            android:text="testApiResponseJsonError" />
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testGsonResponseNormal"
+            android:text="testGsonResponseNormal" />
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testGsonResponseNest"
+            android:text="testGsonResponseNest" />
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testGsonResponseList"
+            android:text="testGsonResponseList" />
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testGsonResponseJsonError"
+            android:text="testGsonResponseJsonError" />
+
+        <TextView
+            style="@style/MainTv"
+            android:onClick="testGetText"
+            android:text="testGetText" />
+
+    </LinearLayout>
+</ScrollView>
