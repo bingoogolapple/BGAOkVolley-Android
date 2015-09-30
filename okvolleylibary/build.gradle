@@ -23,7 +23,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
     //volley
-    compile 'com.mcxiaoke.volley:library:1.0.18'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
     //okhttp
     compile('com.squareup.okhttp:okhttp:2.4.0') {
         exclude group: 'com.squareup.okio', module: 'okio'
