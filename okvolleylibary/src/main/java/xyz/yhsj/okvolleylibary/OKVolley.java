@@ -154,7 +154,7 @@ public class OKVolley {
 
     /*-----------------------------HTTP文件上传-------------------------------------*/
     public static void updateFile(String url, Map<String, String> params, Map<String, File> fileParams, FileRequestListener listener) {
-        BaseHttp.addUpdateRequest(url, params,  fileParams, listener);
+        BaseHttp.addUpdateRequest(url, params, fileParams, listener);
     }
 
     /*-----------------------------文件下载-------------------------------------*/
@@ -163,13 +163,10 @@ public class OKVolley {
     }
 
     /*-----------------------------取消一个请求-------------------------------------*/
-    public static void cancelFileRequestWithUrl(String url) {
-        BaseHttp.cancel(url);
-    }
-
 
     public static void cancelAll(Object tag) {
         OKVolley.getRequestQueue().cancelAll(tag);
+        BaseHttp.cancel(tag);
     }
 
     public static void addRequest(Object tag, Request<?> request) {

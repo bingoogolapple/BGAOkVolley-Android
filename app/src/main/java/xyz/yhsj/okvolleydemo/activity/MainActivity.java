@@ -117,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
         HashMap<String, File> fileParams = new HashMap<>();
         fileParams.put("myFile1", StorageUtil.wiriteIcLauncherToFile());
 
-        OKVolley.updateFile("http://test.bingoogolapple.cn/UploadDownload/uploadAction.php", params, fileParams, new FileRequestListener() {
+        OKVolley.updateFile("http://test.bingoogolapple.cn/UploadDownload/uploadAction.php", params, fileParams, new FileRequestListener(MainActivity.this) {
             @Override
-            public void success(com.squareup.okhttp.Response response, String result) {
+            public void onSuccess(com.squareup.okhttp.Response response, String result) {
                 Log.i(">>>>>", result);
                 mSweetAlertDialog.dismiss();
                 SweetAlertDialogUtil.showSuccess(MainActivity.this, "提示", "上传成功");
@@ -134,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void error(Request request, Exception e) {
-                super.error(request, e);
+            public void onError(Request request, Exception e) {
+                super.onError(request, e);
                 mSweetAlertDialog.dismiss();
                 SweetAlertDialogUtil.showError(MainActivity.this, "提示", "上传失败");
             }

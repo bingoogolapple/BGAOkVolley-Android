@@ -132,8 +132,8 @@ public class DoRequest {
             @Override
             public void run() {
                 if (listener != null) {
-                    listener.httpEnd(false);
-                    listener.error(request, e);
+                    listener.onFinish(false);
+                    listener.onError(request, e);
                 }
             }
         });
@@ -147,8 +147,8 @@ public class DoRequest {
             @Override
             public void run() {
                 if (listener != null) {
-                    listener.httpEnd(true);
-                    listener.success(response, result);
+                    listener.onFinish(true);
+                    listener.onSuccess(response, result);
                 }
             }
         });

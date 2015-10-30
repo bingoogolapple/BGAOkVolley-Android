@@ -25,7 +25,7 @@ public class GetRequest {
      * @param params     参数
      * @return
      */
-    public static Request requestFile(String url, Map<String, File> fileParams, Map<String, String> params, FileRequestListener fileRequestListener) {
+    public static Request requestFile(String url, Object mTag, Map<String, File> fileParams, Map<String, String> params, FileRequestListener fileRequestListener) {
         MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
 
         if (params != null) {
@@ -55,12 +55,12 @@ public class GetRequest {
 
         RequestBody requestBody = builder.build();
 
-        return new Request.Builder().url(url).post(new ProgressRequestBody(requestBody, fileRequestListener)).tag(url).build();
+        return new Request.Builder().url(url).post(new ProgressRequestBody(requestBody, fileRequestListener)).tag(mTag).build();
     }
 
 
-    public static Request requestDownload(String url, String destFileDir) {
-        Request request = new Request.Builder().url(url).tag(url).build();
+    public static Request requestDownload(String url, Object mTag, String destFileDir) {
+        Request request = new Request.Builder().url(url).tag(mTag).build();
         return request;
     }
 
