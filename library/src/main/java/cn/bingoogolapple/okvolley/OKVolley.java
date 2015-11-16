@@ -108,26 +108,26 @@ public class OKVolley {
         OKVolley.getImageLoader().get(url, ImageLoader.getImageListener(imageView, defaultImageResId, errorImageResId));
     }
 
-    public static void addRequest(Object tag, Request<?> request) {
+    public static Request addRequest(Object tag, Request<?> request) {
         if (tag != null) {
             request.setTag(tag);
         }
-        OKVolley.getRequestQueue().add(request);
+        return OKVolley.getRequestQueue().add(request);
     }
 
     public static void cancelAll(Object tag) {
         OKVolley.getRequestQueue().cancelAll(tag);
     }
 
-    public static void postWithCache(String url, Map<String, String> params, VolleyRespHandler respHandler) {
-        post(url, params, true, respHandler);
+    public static Request postWithCache(String url, Map<String, String> params, VolleyRespHandler respHandler) {
+        return post(url, params, true, respHandler);
     }
 
-    public static void postWithoutCache(String url, Map<String, String> params, VolleyRespHandler respHandler) {
-        post(url, params, false, respHandler);
+    public static Request postWithoutCache(String url, Map<String, String> params, VolleyRespHandler respHandler) {
+        return post(url, params, false, respHandler);
     }
 
-    private static void post(String url, final Map<String, String> params, boolean shouldCache, VolleyRespHandler respHandler) {
+    private static Request post(String url, final Map<String, String> params, boolean shouldCache, VolleyRespHandler respHandler) {
         respHandler.setUrl(url);
         Request request = new UTF8StringRequest(Request.Method.POST, url, respHandler) {
             protected Map<String, String> getParams() {
@@ -135,22 +135,22 @@ public class OKVolley {
             }
         };
         request.setShouldCache(shouldCache);
-        OKVolley.addRequest(respHandler.getTag(), request);
+        return OKVolley.addRequest(respHandler.getTag(), request);
     }
 
-    public static void getWithCache(String url, VolleyRespHandler respHandler) {
-        get(url, true, respHandler);
+    public static Request getWithCache(String url, VolleyRespHandler respHandler) {
+        return get(url, true, respHandler);
     }
 
-    public static void getWithoutCache(String url, VolleyRespHandler respHandler) {
-        get(url, false, respHandler);
+    public static Request getWithoutCache(String url, VolleyRespHandler respHandler) {
+        return get(url, false, respHandler);
     }
 
-    private static void get(String url, boolean shouldCache, VolleyRespHandler respHandler) {
+    private static Request get(String url, boolean shouldCache, VolleyRespHandler respHandler) {
         respHandler.setUrl(url);
         Request request = new UTF8StringRequest(Request.Method.GET, url, respHandler);
         request.setShouldCache(shouldCache);
-        OKVolley.addRequest(respHandler.getTag(), request);
+        return OKVolley.addRequest(respHandler.getTag(), request);
     }
 
     public static Cache getCache() {

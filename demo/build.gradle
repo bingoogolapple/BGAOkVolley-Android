@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion ANDROID_BUILD_SDK_VERSION as int
+    compileSdkVersion ANDROID_BUILD_COMPILE_SDK_VERSION as int
     buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
 
     defaultConfig {
@@ -23,11 +23,11 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.0.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
 
-//    compile project(':library')
-    compile 'cn.bingoogolapple:bga-okvolley:1.0.1@aar'
-    compile 'com.mcxiaoke.volley:library:1.0.18'
+    compile project(':library')
+//    compile 'cn.bingoogolapple:bga-okvolley:1.0.1@aar'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
     compile('com.squareup.okhttp:okhttp:2.4.0') {
         exclude group: 'com.squareup.okio', module: 'okio'
     }
