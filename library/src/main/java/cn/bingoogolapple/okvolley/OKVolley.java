@@ -128,13 +128,13 @@ public class OKVolley {
     }
 
     private static Request post(String url, final Map<String, String> params, boolean shouldCache, VolleyRespHandler respHandler) {
-        respHandler.setUrl(url);
-        Request request = new UTF8StringRequest(Request.Method.POST, url, respHandler) {
+        UTF8StringRequest request = new UTF8StringRequest(Request.Method.POST, url, respHandler) {
             protected Map<String, String> getParams() {
                 return params;
             }
         };
         request.setShouldCache(shouldCache);
+        respHandler.setRequest(request);
         return OKVolley.addRequest(respHandler.getTag(), request);
     }
 
@@ -147,9 +147,9 @@ public class OKVolley {
     }
 
     private static Request get(String url, boolean shouldCache, VolleyRespHandler respHandler) {
-        respHandler.setUrl(url);
-        Request request = new UTF8StringRequest(Request.Method.GET, url, respHandler);
+        UTF8StringRequest request = new UTF8StringRequest(Request.Method.GET, url, respHandler);
         request.setShouldCache(shouldCache);
+        respHandler.setRequest(request);
         return OKVolley.addRequest(respHandler.getTag(), request);
     }
 

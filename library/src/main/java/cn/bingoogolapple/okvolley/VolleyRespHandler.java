@@ -6,7 +6,10 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.volley.Request;
 import com.android.volley.VolleyError;
+
+import org.json.JSONObject;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -21,7 +24,7 @@ public abstract class VolleyRespHandler<T> implements VolleyRespListener<String>
     protected SweetAlertDialog mLoadingDialog;
     protected Object mTag;
     protected Activity mActivity;
-    protected String mUrl;
+    protected UTF8StringRequest mRequest;
 
     /**
      * 用于在Service中的网络请求，不需要显示网络数据加载对话框
@@ -64,7 +67,11 @@ public abstract class VolleyRespHandler<T> implements VolleyRespListener<String>
         closeLoadingDialog();
 
         if (sIsDebug) {
-            Log.d(TAG, mUrl + "\n-------------------- START --------------------\n" + response + "\n-------------------- END --------------------");
+            StringBuilder requestSb = new StringBuilder(mRequest.getUrl());
+            if (mRequest.getMethod() == Request.Method.POST && mRequest.getPostParamMap() != null && mRequest.getPostParamMap().size() > 0) {
+                requestSb.append("\n请求参数:" + new JSONObject(mRequest.getPostParamMap()).toString());
+            }
+            Log.d(TAG, requestSb.toString() + "\n-------------------- START --------------------\n" + response + "\n-------------------- END --------------------");
         }
 
         handleResponse(response);
@@ -97,8 +104,8 @@ public abstract class VolleyRespHandler<T> implements VolleyRespListener<String>
         }
     }
 
-    public void setUrl(@NonNull String url) {
-        mUrl = url;
+    public void setRequest(@NonNull UTF8StringRequest request) {
+        mRequest = request;
     }
 
     public static void setIsDebug(boolean isDebug) {

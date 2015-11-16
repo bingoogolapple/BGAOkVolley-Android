@@ -26,7 +26,7 @@ public class ApiClient {
     }
 
     public static void testApiResponseNeedLogin(ApiRespHandler respHandler) {
-        OKVolley.getWithCache("https://raw.githubusercontent.com/bingoogolapple/BGAOkVolley-Android/server/testApiResponseNeedLogin.json", respHandler);
+        OKVolley.getWithoutCache("https://raw.githubusercontent.com/bingoogolapple/BGAOkVolley-Android/server/testApiResponseNeedLogin.json", respHandler);
     }
 
     public static void testApiResponseFailure(ApiRespHandler respHandler) {

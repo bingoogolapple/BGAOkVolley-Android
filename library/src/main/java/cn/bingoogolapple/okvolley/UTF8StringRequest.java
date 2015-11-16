@@ -1,11 +1,13 @@
 package cn.bingoogolapple.okvolley;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
@@ -26,5 +28,14 @@ public class UTF8StringRequest extends StringRequest {
             parsed = new String(response.data);
         }
         return Response.success(parsed, HttpHeaderParser.parseCacheHeaders(response));
+    }
+
+    public Map<String, String> getPostParamMap() {
+        try {
+            return getParams();
+        } catch (AuthFailureError authFailureError) {
+            authFailureError.printStackTrace();
+        }
+        return null;
     }
 }
